@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cee31496a9b3c0e499156277a403f216, type: 3}
+  m_Name: Venus
+  m_EditorClassIdentifier: 
+  CelestialBodyName: Venus
+  OrbitingBodyName: Sun
+  Apoapsis: 108939000000
+  Periapsis: 107477000000
+  SemiMajorAxis: 108208000000
+  OrbitalEccentricit: 0.006755508
+  EtimesP: 108203061723.56216
+  OrbitalInclination: 3.39458
+  ArgumentOfPeriapsis: 54.884
+  LongitudeOfTheAscendingNode: 76.68
+  PlaneNormalVector: {x: -0.013641805, y: 0.05761905, z: 0.9982454}
+  AscendingNode: {x: -69.94478, y: -16.560038, z: 0}
+  DescendingNode: {x: 70.82779, y: 16.769085, z: 0}
+  OrbitalPeriod: 19414652.375988964
+  OrbitalAngularMomentum: 1.8444421559835143e+40
+  SpecificAngularMomentum: 3789300782708812
+  OrbitalMechanicalEnergy: -2.9846623265139095e+33
+  MeanAnomalyAtT0: 50.115
+  TrueAnomalyAtT0: 0.15252441
+  TrueAnomaly: 0.15252441
+  EccentricAnomaly: 6.131684
+  MeanAnomaly: 50.115
+  MeanRadius: 6051800
+  Mass: 4.8675e+24
+  StandardGravitationalParameter: 324860994892500.06
+  Density: 5242.804188968202
+  Obliquity: 2.64
+  ObliquityLongitude: 0
+  RotationAxis: {x: 0.04606039, y: 0, z: 0.9989387}
+  SiderealRotationPeriod: -503936640
+  SphereOfInfluence: 169032652.63522664

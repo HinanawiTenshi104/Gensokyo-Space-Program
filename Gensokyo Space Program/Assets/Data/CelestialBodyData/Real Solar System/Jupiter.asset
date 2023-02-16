@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cee31496a9b3c0e499156277a403f216, type: 3}
+  m_Name: Jupiter
+  m_EditorClassIdentifier: 
+  CelestialBodyName: Jupiter
+  OrbitingBodyName: Sun
+  Apoapsis: 816363000000
+  Periapsis: 740595000000
+  SemiMajorAxis: 778479000000
+  OrbitalEccentricit: 0.048664127
+  EtimesP: 776635408202.2831
+  OrbitalInclination: 1.303
+  ArgumentOfPeriapsis: 273.867
+  LongitudeOfTheAscendingNode: 100.464
+  PlaneNormalVector: {x: 0.0041299267, y: 0.0223615, z: 0.99974144}
+  AscendingNode: {x: -0, y: 0, z: 0}
+  DescendingNode: {x: 0, y: -0, z: 0}
+  OrbitalPeriod: 374637214.90561545
+  OrbitalAngularMomentum: 1.9270361738411247e+43
+  SpecificAngularMomentum: 10151913253825332
+  OrbitalMechanicalEnergy: -1.6178702198942264e+35
+  MeanAnomalyAtT0: 20.02
+  TrueAnomalyAtT0: 22.044098
+  TrueAnomaly: 0.38474208
+  EccentricAnomaly: 0.36687055
+  MeanAnomaly: 0.3494149
+  MeanRadius: 69911000
+  Mass: 1.8982e+27
+  StandardGravitationalParameter: 1.2668744540420002e+17
+  Density: 1326.2237617602511
+  Obliquity: 3.13
+  ObliquityLongitude: 0
+  RotationAxis: {x: 0.05460164, y: 0, z: 0.9985082}
+  SiderealRotationPeriod: 35748
+  SphereOfInfluence: 23331360078.250435

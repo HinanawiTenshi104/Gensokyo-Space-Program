@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cee31496a9b3c0e499156277a403f216, type: 3}
+  m_Name: Mercury
+  m_EditorClassIdentifier: 
+  CelestialBodyName: Mercury
+  OrbitingBodyName: Sun
+  Apoapsis: 69816900000
+  Periapsis: 46001200000
+  SemiMajorAxis: 57909050000
+  OrbitalEccentricit: 0.20563021
+  EtimesP: 55460436208.761986
+  OrbitalInclination: 7.005
+  ArgumentOfPeriapsis: 29.124
+  LongitudeOfTheAscendingNode: 48.331
+  PlaneNormalVector: {x: -0.08107953, y: 0.09110086, z: 0.99253553}
+  AscendingNode: {x: -23.190279, y: -20.639296, z: 0}
+  DescendingNode: {x: 34.366985, y: 30.586529, z: 0}
+  OrbitalPeriod: 7600816.086732427
+  OrbitalAngularMomentum: 8.955495619623574e+38
+  SpecificAngularMomentum: 2712882257315311
+  OrbitalMechanicalEnergy: -3.782342510256169e+32
+  MeanAnomalyAtT0: 174.796
+  TrueAnomalyAtT0: 1.5393705
+  TrueAnomaly: 1.5393705
+  EccentricAnomaly: 4.950152
+  MeanAnomaly: 174.796
+  MeanRadius: 2439700
+  Mass: 3.3011e+23
+  StandardGravitationalParameter: 22031815721410
+  Density: 5427.011984248732
+  Obliquity: 0.03
+  ObliquityLongitude: 0
+  RotationAxis: {x: 0.00052359875, y: 0, z: 0.9999999}
+  SiderealRotationPeriod: 96279840
+  SphereOfInfluence: 23585010.228419673

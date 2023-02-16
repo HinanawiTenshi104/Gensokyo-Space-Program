@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cee31496a9b3c0e499156277a403f216, type: 3}
+  m_Name: Neptune
+  m_EditorClassIdentifier: 
+  CelestialBodyName: Neptune
+  OrbitingBodyName: Sun
+  Apoapsis: 4540000000000
+  Periapsis: 4460000000000
+  SemiMajorAxis: 4500000000000
+  OrbitalEccentricit: 0.008888889
+  EtimesP: 4499644444427.226
+  OrbitalInclination: 1.77
+  ArgumentOfPeriapsis: 273.187
+  LongitudeOfTheAscendingNode: 131.783
+  PlaneNormalVector: {x: 0.020580633, y: 0.023031931, z: 0.99952286}
+  AscendingNode: {x: -45170.953, y: 40363.395, z: 0}
+  DescendingNode: {x: 44547.65, y: -39806.44, z: 0}
+  OrbitalPeriod: 5206661385.896521
+  OrbitalAngularMomentum: 2.5025541977273637e+42
+  SpecificAngularMomentum: 24435903622854164
+  OrbitalMechanicalEnergy: -1.510049514695067e+33
+  MeanAnomalyAtT0: 256.228
+  TrueAnomalyAtT0: 104.758675
+  TrueAnomaly: 1.8283838
+  EccentricAnomaly: 4.463407
+  MeanAnomaly: 4.472022
+  MeanRadius: 24622000
+  Mass: 1.02413e+26
+  StandardGravitationalParameter: 6835128725203001
+  Density: 1637.9343313064091
+  Obliquity: 28.32
+  ObliquityLongitude: 0
+  RotationAxis: {x: 0.4743955, y: 0, z: 0.8803118}
+  SiderealRotationPeriod: 57996
+  SphereOfInfluence: 32064292492.294575

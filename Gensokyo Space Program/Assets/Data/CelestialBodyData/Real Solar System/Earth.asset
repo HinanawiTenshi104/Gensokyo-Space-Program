@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cee31496a9b3c0e499156277a403f216, type: 3}
+  m_Name: Earth
+  m_EditorClassIdentifier: 
+  CelestialBodyName: Earth
+  OrbitingBodyName: Sun
+  Apoapsis: 152097597000
+  Periapsis: 147095000000
+  SemiMajorAxis: 149596298500
+  OrbitalEccentricit: 0.016720323
+  EtimesP: 149554475982.86218
+  OrbitalInclination: 0.00005
+  ArgumentOfPeriapsis: 114.20783
+  LongitudeOfTheAscendingNode: 348.73935
+  PlaneNormalVector: {x: -0.0000008558649, y: -0.00000017040756, z: 1}
+  AscendingNode: {x: 394.25742, y: -1980.1404, z: 0}
+  DescendingNode: {x: -386.68042, y: 1942.0868, z: 0}
+  OrbitalPeriod: 31558898.409793306
+  OrbitalAngularMomentum: 2.6605484617749385e+40
+  SpecificAngularMomentum: 4454910797540825
+  OrbitalMechanicalEnergy: -2.648865625335906e+33
+  MeanAnomalyAtT0: 358.617
+  TrueAnomalyAtT0: 1.4302608
+  TrueAnomaly: 0.024962759
+  EccentricAnomaly: 6.258637
+  MeanAnomaly: 6.2590475
+  MeanRadius: 6371000
+  Mass: 5.97217e+24
+  StandardGravitationalParameter: 398587588673270
+  Density: 5513.415526555078
+  Obliquity: 23.44
+  ObliquityLongitude: 0
+  RotationAxis: {x: 0.39778852, y: 0, z: 0.91747713}
+  SiderealRotationPeriod: 86148
+  SphereOfInfluence: 258804689.74678102

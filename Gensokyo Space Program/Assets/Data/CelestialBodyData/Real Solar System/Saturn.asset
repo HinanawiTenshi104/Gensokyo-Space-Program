@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cee31496a9b3c0e499156277a403f216, type: 3}
+  m_Name: Saturn
+  m_EditorClassIdentifier: 
+  CelestialBodyName: Saturn
+  OrbitingBodyName: Sun
+  Apoapsis: 1514500000000
+  Periapsis: 1352550000000
+  SemiMajorAxis: 1433525000000
+  OrbitalEccentricit: 0.056486633
+  EtimesP: 1428950994913.1975
+  OrbitalInclination: 2.485
+  ArgumentOfPeriapsis: 339.392
+  LongitudeOfTheAscendingNode: 113.665
+  PlaneNormalVector: {x: 0.017403329, y: 0.039711785, z: 0.9990596}
+  AscendingNode: {x: -18215.693, y: 7982.858, z: 0}
+  DescendingNode: {x: 16833.627, y: -7377.1787, z: 0}
+  OrbitalPeriod: 936156529.0256461
+  OrbitalAngularMomentum: 7.826294662448082e+42
+  SpecificAngularMomentum: 13770444914044554
+  OrbitalMechanicalEnergy: -2.6305803115948795e+34
+  MeanAnomalyAtT0: 317.02
+  TrueAnomalyAtT0: 47.627533
+  TrueAnomaly: 0.8312573
+  EccentricAnomaly: 5.492906
+  MeanAnomaly: 5.5330424
+  MeanRadius: 58232000
+  Mass: 5.6834e+26
+  StandardGravitationalParameter: 37931483890540000
+  Density: 687.1229945549895
+  Obliquity: 26.73
+  ObliquityLongitude: 0
+  RotationAxis: {x: 0.4497867, y: 0, z: 0.893136}
+  SiderealRotationPeriod: 38376
+  SphereOfInfluence: 23832289610.46065

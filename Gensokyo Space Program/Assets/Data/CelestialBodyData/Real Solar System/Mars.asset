@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cee31496a9b3c0e499156277a403f216, type: 3}
+  m_Name: Mars
+  m_EditorClassIdentifier: 
+  CelestialBodyName: Mars
+  OrbitingBodyName: Sun
+  Apoapsis: 249261000000
+  Periapsis: 206650000000
+  SemiMajorAxis: 227955500000
+  OrbitalEccentricit: 0.09346342
+  EtimesP: 225964215008.59515
+  OrbitalInclination: 1.85
+  ArgumentOfPeriapsis: 286.5
+  LongitudeOfTheAscendingNode: 49.57854
+  PlaneNormalVector: {x: -0.020932449, y: 0.02457689, z: 0.99947876}
+  AscendingNode: {x: -3.281278, y: -2.7947075, z: 0}
+  DescendingNode: {x: 11.125229, y: 9.475506, z: 0}
+  OrbitalPeriod: 59362977.55422154
+  OrbitalAngularMomentum: 3.513969158104594e+39
+  SpecificAngularMomentum: 5475945766942379
+  OrbitalMechanicalEnergy: -1.8678299967954236e+32
+  MeanAnomalyAtT0: 19.412
+  TrueAnomalyAtT0: 23.406609
+  TrueAnomaly: 0.40852237
+  EccentricAnomaly: 0.3728493
+  MeanAnomaly: 0.33880332
+  MeanRadius: 3389500
+  Mass: 6.4171e+23
+  StandardGravitationalParameter: 42828258661010
+  Density: 3934.0807598647716
+  Obliquity: 25.19
+  ObliquityLongitude: 0
+  RotationAxis: {x: 0.42562136, y: 0, z: 0.9049013}
+  SiderealRotationPeriod: 88632
+  SphereOfInfluence: 129422575.70539969

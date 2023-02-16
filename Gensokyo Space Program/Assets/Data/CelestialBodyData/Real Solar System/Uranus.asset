@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cee31496a9b3c0e499156277a403f216, type: 3}
+  m_Name: Uranus
+  m_EditorClassIdentifier: 
+  CelestialBodyName: Uranus
+  OrbitingBodyName: Sun
+  Apoapsis: 3006390000000
+  Periapsis: 2735560000000
+  SemiMajorAxis: 2870975000000
+  OrbitalEccentricit: 0.047166903
+  EtimesP: 2864587893977.303
+  OrbitalInclination: 0.773
+  ArgumentOfPeriapsis: 96.998856
+  LongitudeOfTheAscendingNode: 74.006
+  PlaneNormalVector: {x: -0.0037172625, y: 0.012968757, z: 0.999909}
+  AscendingNode: {x: -35282.746, y: -10113.175, z: 0}
+  DescendingNode: {x: 38485.746, y: 11031.262, z: 0}
+  OrbitalPeriod: 2653289753.111598
+  OrbitalAngularMomentum: 1.6925446602803058e+42
+  SpecificAngularMomentum: 19497116234077936
+  OrbitalMechanicalEnergy: -2.0062680600750233e+33
+  MeanAnomalyAtT0: 142.2386
+  TrueAnomalyAtT0: 145.3992
+  TrueAnomaly: 2.5376947
+  EccentricAnomaly: 2.5103667
+  MeanAnomaly: 2.4825318
+  MeanRadius: 25362000
+  Mass: 8.681e+25
+  StandardGravitationalParameter: 5793771539110001
+  Density: 1270.3712020204464
+  Obliquity: 82.23
+  ObliquityLongitude: 0
+  RotationAxis: {x: 0.9908188, y: 0, z: 0.13519675}
+  SiderealRotationPeriod: -62064
+  SphereOfInfluence: 18844795474.826378

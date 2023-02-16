@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cee31496a9b3c0e499156277a403f216, type: 3}
+  m_Name: Moon
+  m_EditorClassIdentifier: 
+  CelestialBodyName: Moon
+  OrbitingBodyName: Earth
+  Apoapsis: 405400000
+  Periapsis: 362600000
+  SemiMajorAxis: 384000000
+  OrbitalEccentricit: 0.055729166
+  EtimesP: 382807395.87585133
+  OrbitalInclination: 5.145
+  ArgumentOfPeriapsis: 0
+  LongitudeOfTheAscendingNode: 0
+  PlaneNormalVector: {x: -0.08967656, y: 0, z: 0.99597096}
+  AscendingNode: {x: 0.000000057807796, y: -4.8476624, z: 0}
+  DescendingNode: {x: -0.0000018306469, y: 5.419863, z: 0}
+  OrbitalPeriod: 2368180.6007223963
+  OrbitalAngularMomentum: 2.867915992590038e+34
+  SpecificAngularMomentum: 390617814299.92346
+  OrbitalMechanicalEnergy: -3.81045582846867e+28
+  MeanAnomalyAtT0: 0
+  TrueAnomalyAtT0: 0
+  TrueAnomaly: 0
+  EccentricAnomaly: 0
+  MeanAnomaly: 0
+  MeanRadius: 1737400
+  Mass: 7.342e+22
+  StandardGravitationalParameter: 4900111812020
+  Density: 3342.1528439687786
+  Obliquity: 6.68
+  ObliquityLongitude: 0
+  RotationAxis: {x: 0.116324045, y: 0, z: 0.9932113}
+  SiderealRotationPeriod: 2360628
+  SphereOfInfluence: 38327138.339237675
