@@ -1,13 +1,17 @@
+using _Scripts.CelestialBody.ScriptableObjects;
 using UnityEngine;
 
-public class CelestialBodyDataHolder : MonoBehaviour
+namespace _Scripts.CelestialBody
 {
-    [field: SerializeField, Header("ÌìÌåÐÅÏ¢")]
-    public CelestialBodyDataSO celestialBodyData;
-    public GameObject OrbitingObject;
-
-    private void Start()
+    public class CelestialBodyDataHolder : MonoBehaviour
     {
-        OrbitingObject = GameObject.Find(celestialBodyData.OrbitingBodyName);
+        [field: SerializeField, Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢")]
+        public CelestialBodyDataSO celestialBodyData;
+        public GameObject orbitingObject;
+
+        private void Start()
+        {
+            orbitingObject = GameObject.Find(celestialBodyData.OrbitingBodyName);
+        }
     }
 }

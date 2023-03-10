@@ -1,178 +1,182 @@
 using System;
 using System.Collections.Generic;
+using _Scripts.CelestialBody.ScriptableObjects;
 using UnityEngine;
 
-public static class OrbitalMechanicsFunctions
+namespace _Scripts.CelestialBody.Function
 {
-    public static void UpdateMeanAnomaly(CelestialBodyDataSO cbdata, float timesinceT0)
+    public static class OrbitalMechanicsFunctions
     {
-        float MeanAnomalyAtT0 = cbdata.MeanAnomalyAtT0;
-        double OrbitalPeriod = cbdata.OrbitalPeriod;
+        public static void UpdateMeanAnomaly(CelestialBodyDataSO cbdata, float timesinceT0)
+        {
+            float meanAnomalyAtT0 = cbdata.MeanAnomalyAtT0;
+            double orbitalPeriod = cbdata.OrbitalPeriod;
 
-        cbdata.MeanAnomaly = (float)(MeanAnomalyAtT0 + 2f * Mathf.PI * timesinceT0 / (OrbitalPeriod * Constants.OrbitSizeShrinkFactor * 100)) % (2f * Mathf.PI);
-    }
-    public static Vector3 CalculatePlanetPosition(float OrbitalEccentricit, double EtimesP, float ArgumentOfPeriapsis, float MeanAnomaly, Vector3 targetPlaneNormalVector)
-    {
-        float TrueAnomaly = MAnomalyToTAnomaly(OrbitalEccentricit, MeanAnomaly);
-        double Radius = EtimesP * Constants.OrbitSizeShrinkFactor / (1 - OrbitalEccentricit * Math.Cos(TrueAnomaly - Math.PI / 2.0f + ArgumentOfPeriapsis * Mathf.Deg2Rad));
-        Vector3 point = new Vector3((float)(Radius * Math.Cos(TrueAnomaly)), (float)(Radius * Math.Sin(TrueAnomaly)), 0);
-        return Quaternion.FromToRotation(Vector3.forward, targetPlaneNormalVector) * point;
-    }
-    public static Vector3 CalculatePlanetPosition(CelestialBodyDataSO celestialBodyData)
-    {
-        return CalculatePlanetPosition(celestialBodyData.OrbitalEccentricit, celestialBodyData.EtimesP, celestialBodyData.ArgumentOfPeriapsis, celestialBodyData.MeanAnomaly, celestialBodyData.PlaneNormalVector);
-    }
-    public static Vector3 CalculatePlanetWorldPosition(GameObject planet)
-    {
-        CelestialBodyDataHolder planetcbdataholder = planet.GetComponent<CelestialBodyDataHolder>();
-        CelestialBodyDataSO planetcbdata = planetcbdataholder.celestialBodyData;
-        Vector3 planetPos;
-        if (planet.tag != "CelestialBody")//Ã»ÓĞ¹ìµÀĞÅÏ¢µÄÎïÌå
-        {
-            return planetcbdata.Position;
+            cbdata.MeanAnomaly = (float)(meanAnomalyAtT0 + 2f * Mathf.PI * timesinceT0 / (orbitalPeriod * Constants.OrbitSizeShrinkFactor * 100)) % (2f * Mathf.PI);
         }
-        else
+        public static Vector3 CalculatePlanetPosition(float orbitalEccentricity, double etimesP, float argumentOfPeriapsis, float meanAnomaly, Vector3 targetPlaneNormalVector)
         {
-            planetPos = CalculatePlanetPosition(planetcbdata);
+            float trueAnomaly = MAnomalyToTAnomaly(orbitalEccentricity, meanAnomaly);
+            double radius = etimesP * Constants.OrbitSizeShrinkFactor / (1 - orbitalEccentricity * Math.Cos(trueAnomaly - Math.PI / 2.0f + argumentOfPeriapsis * Mathf.Deg2Rad));
+            Vector3 point = new Vector3((float)(radius * Math.Cos(trueAnomaly)), (float)(radius * Math.Sin(trueAnomaly)), 0);
+            return Quaternion.FromToRotation(Vector3.forward, targetPlaneNormalVector) * point;
         }
-
-        GameObject OrbitingObject = planetcbdataholder.OrbitingObject;
-        while (OrbitingObject != null)//Ö±µ½Ã»ÓĞÖĞĞÄÌìÌåÎªÖ¹Ò»Ö±µş¼ÓÖĞĞÄÌìÌåµÄ×ø±ê(Ò»Ö±×ª»»×ø±êÏµ)
+        public static Vector3 CalculatePlanetPosition(CelestialBodyDataSO celestialBodyData)
         {
-            if (OrbitingObject.tag == "CelestialBody")
+            return CalculatePlanetPosition(celestialBodyData.OrbitalEccentricity, celestialBodyData.EtimesP, celestialBodyData.ArgumentOfPeriapsis, celestialBodyData.MeanAnomaly, celestialBodyData.PlaneNormalVector);
+        }
+        public static Vector3 CalculatePlanetWorldPosition(GameObject planet)
+        {
+            CelestialBodyDataHolder planetcbdataholder = planet.GetComponent<CelestialBodyDataHolder>();
+            CelestialBodyDataSO planetcbdata = planetcbdataholder.celestialBodyData;
+            Vector3 planetPos;
+            if (!planet.CompareTag("CelestialBody"))//æ²¡æœ‰è½¨é“ä¿¡æ¯çš„ç‰©ä½“
             {
-                CelestialBodyDataSO centralcbdata = OrbitingObject.GetComponent<CelestialBodyDataHolder>().celestialBodyData;
-                planetPos += CalculatePlanetPosition(centralcbdata);
-
-                OrbitingObject = OrbitingObject.GetComponent<CelestialBodyDataHolder>().OrbitingObject;
+                return planetcbdata.Position;
             }
             else
             {
-                planetPos += OrbitingObject.transform.position;
-                break;
+                planetPos = CalculatePlanetPosition(planetcbdata);
             }
-        }
 
-        return planetPos;
-    }
-    public static Vector3 CalculatePointOnTheEllipse(float OrbitalEccentricit, double EtimesP, float ArgumentOfPeriapsis, float TrueAnomaly)
-    {
-        double Radius = EtimesP * Constants.OrbitSizeShrinkFactor / (1 - OrbitalEccentricit * Math.Cos(TrueAnomaly - Math.PI / 2.0f + ArgumentOfPeriapsis * Mathf.Deg2Rad));
-        return new Vector3((float)(Radius * Math.Cos(TrueAnomaly)), (float)(Radius * Math.Sin(TrueAnomaly)), 0);
-    }
-    public static Vector3 TranslatePoints(Vector3 point, Vector3 targetPlaneNormalVector)//°ÑÍÖÔ²¹ìµÀÆ½Ãæ×ø±êÏµÉÏµÄµã×ª»»µ½³àµÀ×ø±êÏµµÄµã
-    {
-        return Quaternion.FromToRotation(Vector3.forward, targetPlaneNormalVector) * point;
-    }
-    public static void SetupOrbitVisuaizer(LineRenderer lineRenderer, int segments, float OrbitalEccentricit, double EtimesP, float ArgumentOfPeriapsis, Vector3 planeVector)
-    {
-        Vector3[] points = new Vector3[segments + 1];
-        for (int i = 0; i < segments; i++)
-        {
-            float angle = (float)(2 * Math.PI * i / segments);
-            points[i] = TranslatePoints(CalculatePointOnTheEllipse(OrbitalEccentricit, EtimesP, ArgumentOfPeriapsis, angle), planeVector.normalized);
-        }
-        points[segments] = points[0];
-
-        lineRenderer.positionCount = points.Length;
-        lineRenderer.SetPositions(points);
-    }
-
-    public static List<CelestialBodyDataSO> GetCelestialBodyDatas(GameObject[] planets)
-    {
-        List<CelestialBodyDataSO> cbdatas = new List<CelestialBodyDataSO>();
-        for (int i = 0; i < planets.Length; i++)
-        {
-            CelestialBodyDataSO temp = planets[i].GetComponent<CelestialBodyDataHolder>().celestialBodyData;
-            if (temp == null)
+            GameObject orbitingObject = planetcbdataholder.orbitingObject;
+            while (orbitingObject != null)//ç›´åˆ°æ²¡æœ‰ä¸­å¿ƒå¤©ä½“ä¸ºæ­¢ä¸€ç›´å åŠ ä¸­å¿ƒå¤©ä½“çš„åæ ‡(ä¸€ç›´è½¬æ¢åæ ‡ç³»)
             {
-                Debug.Log("GetCelestialBodyDatasº¯ÊıÕÒ²»µ½cbdata!");
-                break;
+                if (orbitingObject.CompareTag("CelestialBody"))
+                {
+                    CelestialBodyDataSO centralcbdata = orbitingObject.GetComponent<CelestialBodyDataHolder>().celestialBodyData;
+                    planetPos += CalculatePlanetPosition(centralcbdata);
+
+                    orbitingObject = orbitingObject.GetComponent<CelestialBodyDataHolder>().orbitingObject;
+                }
+                else
+                {
+                    planetPos += orbitingObject.transform.position;
+                    break;
+                }
             }
-            cbdatas.Add(temp);
+
+            return planetPos;
         }
-        return cbdatas;
-    }
-
-    //¿ªÆÕÀÕ·½³ÌÊıÖµ½â·¨£¬²Î¿¼£ºhttp://murison.alpheratz.net/dynamics/twobody/KeplerIterations_summary.pdf
-    //¿ªÆÕÀÕ·½³ÌµÄÈı½×½üËÆ
-    private static float KeplerStart3(float OrbitalEccentricit, float MeanAnomaly)
-    {
-        float t33, t34, t35;
-        t33 = Mathf.Cos(OrbitalEccentricit);
-        t34 = Mathf.Pow(OrbitalEccentricit, 2);
-        t35 = t34 * OrbitalEccentricit;
-        return MeanAnomaly + (-0.5f * t35 + OrbitalEccentricit + (t34 + 1.5f * t33 * t35) * t33) * Mathf.Sin(MeanAnomaly);
-    }
-    private static float eps3(float OrbitalEccentricit, float MeanAnomaly, float x)
-    {
-        float t1, t2, t3, t4, t5, t6;
-        t1 = Mathf.Cos(x);
-        t2 = OrbitalEccentricit * t1 - 1;
-        t3 = Mathf.Sin(x);
-        t4 = OrbitalEccentricit * t3;
-        t5 = -x + t4 + MeanAnomaly;
-        t6 = t5 / (0.5f * t4 * t5 / t2 + t2);
-        return t5 / ((0.5f * t3 - 1 / 6 * t1 * t6) * OrbitalEccentricit * t6 + t2);
-    }
-    //°ÑÆ½½üµã½Ç×ª»»³ÉÆ«½üµã½Ç
-    public static float MAnomalyToEAnomaly(float OrbitalEccentricit, float MeanAnomaly, double tolerance = 1e-5)
-    {
-        float EccentricAnomaly = 0, EccentricAnomaly0, MeanAnomalyNormal;
-        double dEccentricAnomaly;
-        int count = 0;
-        MeanAnomalyNormal = MeanAnomaly % (2 * Mathf.PI);
-        EccentricAnomaly0 = KeplerStart3(OrbitalEccentricit, MeanAnomalyNormal);
-        dEccentricAnomaly = tolerance + 1;
-
-        while (dEccentricAnomaly > tolerance)
+        public static Vector3 CalculatePointOnTheEllipse(float orbitalEccentricity, double etimesP, float argumentOfPeriapsis, float trueAnomaly)
         {
-            count++;
-            EccentricAnomaly = EccentricAnomaly0 - eps3(OrbitalEccentricit, MeanAnomalyNormal, EccentricAnomaly0);
-            dEccentricAnomaly = Math.Abs(EccentricAnomaly - EccentricAnomaly0);
-            EccentricAnomaly0 = EccentricAnomaly;
-            if (count >= 100)
+            double radius = etimesP * Constants.OrbitSizeShrinkFactor / (1 - orbitalEccentricity * Math.Cos(trueAnomaly - Math.PI / 2.0f + argumentOfPeriapsis * Mathf.Deg2Rad));
+            return new Vector3((float)(radius * Math.Cos(trueAnomaly)), (float)(radius * Math.Sin(trueAnomaly)), 0);
+        }
+        public static Vector3 TranslatePoints(Vector3 point, Vector3 targetPlaneNormalVector)//æŠŠæ¤­åœ†è½¨é“å¹³é¢åæ ‡ç³»ä¸Šçš„ç‚¹è½¬æ¢åˆ°èµ¤é“åæ ‡ç³»çš„ç‚¹
+        {
+            return Quaternion.FromToRotation(Vector3.forward, targetPlaneNormalVector) * point;
+        }
+        public static void SetupOrbitVisuaizer(LineRenderer lineRenderer, int segments, float orbitalEccentricity, double etimesP, float argumentOfPeriapsis, Vector3 planeVector)
+        {
+            Vector3[] points = new Vector3[segments + 1];
+            for (int i = 0; i < segments; i++)
             {
-                Debug.Log("Astounding! KeplerSolve failed to converge!");
-                Debug.Log("ÊäÈë½øÀ´µÄÆ½½üµã½ÇÎª£º" + MeanAnomaly);
-                Debug.Log("ÊäÈë½øÀ´µÄ±ê×¼»¯Æ½½üµã½ÇÎª£º" + MeanAnomalyNormal);
-                break;
+                float angle = (float)(2 * Math.PI * i / segments);
+                points[i] = TranslatePoints(CalculatePointOnTheEllipse(orbitalEccentricity, etimesP, argumentOfPeriapsis, angle), planeVector.normalized);
             }
+            points[segments] = points[0];
+
+            lineRenderer.positionCount = points.Length;
+            lineRenderer.SetPositions(points);
         }
 
-        return EccentricAnomaly;
-    }
-    //°ÑÆ«½üµã½Ç×ª»»³ÉÕæ½üµã½Ç
-    public static float EAnomalyToTAnomaly(float OrbitalEccentricit, float EccentricAnomaly)
-    {
-        float temp = Mathf.Cos(EccentricAnomaly);
-        if (EccentricAnomaly%(2*Mathf.PI)>Mathf.PI) 
-            return 2 * Mathf.PI - Mathf.Acos((temp - OrbitalEccentricit) / (1 - OrbitalEccentricit * temp));
-        else 
-            return Mathf.Acos((temp - OrbitalEccentricit) / (1 - OrbitalEccentricit * temp));
-    }
-    //°ÑÕæ½üµã½Ç×ª»»³ÉÆ«½üµã½Ç
-    public static float TAnomalyToEAnomaly(float OrbitalEccentricit, float TrueAnomaly)
-    {
-        float temp = Mathf.Cos(TrueAnomaly);
-        if (TrueAnomaly % (2 * Mathf.PI) > Mathf.PI)
-            return 2 * Mathf.PI - Mathf.Acos((OrbitalEccentricit + temp) / (1 + OrbitalEccentricit * temp));
-        else
-            return Mathf.Acos((OrbitalEccentricit + temp) / (1 + OrbitalEccentricit * temp));
-    }
-    //°ÑÆ«½üµã½Ç×ª»»³ÉÆ½½üµã½Ç
-    public static float EAnomalyToMAnomaly(float OrbitalEccentricit, float EccentricAnomaly)
-    {
-        return (EccentricAnomaly - OrbitalEccentricit * Mathf.Sin(EccentricAnomaly)) % (2 * Mathf.PI);
-    }
-    //°ÑÆ½½üµã½Ç×ª»»³ÉÕæ½üµã½Ç
-    public static float MAnomalyToTAnomaly(float OrbitalEccentricit, float MeanAnomaly, double tolerance = 1e-5)
-    {
-        return EAnomalyToTAnomaly(OrbitalEccentricit, MAnomalyToEAnomaly(OrbitalEccentricit, MeanAnomaly, tolerance));
-    }
-    //°ÑÕæ½üµã½Ç×ª»»³ÉÆ½½üµã½Ç
-    public static float TAnomalyToMAnomaly(float OrbitalEccentricit, float TrueAnomaly)
-    {
-        return EAnomalyToMAnomaly(OrbitalEccentricit, TAnomalyToEAnomaly(OrbitalEccentricit, TrueAnomaly));
+        public static List<CelestialBodyDataSO> GetCelestialBodyDatas(GameObject[] planets)
+        {
+            List<CelestialBodyDataSO> cbdatas = new List<CelestialBodyDataSO>();
+            for (int i = 0; i < planets.Length; i++)
+            {
+                CelestialBodyDataSO temp = planets[i].GetComponent<CelestialBodyDataHolder>().celestialBodyData;
+                if (temp == null)
+                {
+                    Debug.Log("GetCelestialBodyDataså‡½æ•°æ‰¾ä¸åˆ°cbdata!");
+                    break;
+                }
+                cbdatas.Add(temp);
+            }
+            return cbdatas;
+        }
+
+        //å¼€æ™®å‹’æ–¹ç¨‹æ•°å€¼è§£æ³•ï¼Œå‚è€ƒï¼šhttp://murison.alpheratz.net/dynamics/twobody/KeplerIterations_summary.pdf
+        //å¼€æ™®å‹’æ–¹ç¨‹çš„ä¸‰é˜¶è¿‘ä¼¼
+        private static float KeplerStart3(float orbitalEccentricity, float meanAnomaly)
+        {
+            float t33, t34, t35;
+            t33 = Mathf.Cos(orbitalEccentricity);
+            t34 = Mathf.Pow(orbitalEccentricity, 2);
+            t35 = t34 * orbitalEccentricity;
+            return meanAnomaly + (-0.5f * t35 + orbitalEccentricity + (t34 + 1.5f * t33 * t35) * t33) * Mathf.Sin(meanAnomaly);
+        }
+        private static float Eps3(float orbitalEccentricity, float meanAnomaly, float x)
+        {
+            float t1, t2, t3, t4, t5, t6;
+            t1 = Mathf.Cos(x);
+            t2 = orbitalEccentricity * t1 - 1;
+            t3 = Mathf.Sin(x);
+            t4 = orbitalEccentricity * t3;
+            t5 = -x + t4 + meanAnomaly;
+            t6 = t5 / (0.5f * t4 * t5 / t2 + t2);
+            return t5 / ((0.5f * t3 - 1f / 6f * t1 * t6) * orbitalEccentricity * t6 + t2);
+        }
+        //æŠŠå¹³è¿‘ç‚¹è§’è½¬æ¢æˆåè¿‘ç‚¹è§’
+        public static float MAnomalyToEAnomaly(float orbitalEccentricity, float meanAnomaly, double tolerance = 1e-5)
+        {
+            float eccentricAnomaly = 0, eccentricAnomaly0, meanAnomalyNormal;
+            double dEccentricAnomaly;
+            int count = 0;
+            meanAnomalyNormal = meanAnomaly % (2 * Mathf.PI);
+            eccentricAnomaly0 = KeplerStart3(orbitalEccentricity, meanAnomalyNormal);
+            dEccentricAnomaly = tolerance + 1;
+
+            while (dEccentricAnomaly > tolerance)
+            {
+                count++;
+                eccentricAnomaly = eccentricAnomaly0 - Eps3(orbitalEccentricity, meanAnomalyNormal, eccentricAnomaly0);
+                dEccentricAnomaly = Math.Abs(eccentricAnomaly - eccentricAnomaly0);
+                eccentricAnomaly0 = eccentricAnomaly;
+                if (count >= 100)
+                {
+                    Debug.Log("Astounding! KeplerSolve failed to converge!");
+                    Debug.Log("è¾“å…¥è¿›æ¥çš„å¹³è¿‘ç‚¹è§’ä¸ºï¼š" + meanAnomaly);
+                    Debug.Log("è¾“å…¥è¿›æ¥çš„æ ‡å‡†åŒ–å¹³è¿‘ç‚¹è§’ä¸ºï¼š" + meanAnomalyNormal);
+                    break;
+                }
+            }
+
+            return eccentricAnomaly;
+        }
+        //æŠŠåè¿‘ç‚¹è§’è½¬æ¢æˆçœŸè¿‘ç‚¹è§’
+        public static float EAnomalyToTAnomaly(float orbitalEccentricity, float eccentricAnomaly)
+        {
+            float temp = Mathf.Cos(eccentricAnomaly);
+            if (eccentricAnomaly%(2*Mathf.PI)>Mathf.PI) 
+                return 2 * Mathf.PI - Mathf.Acos((temp - orbitalEccentricity) / (1 - orbitalEccentricity * temp));
+            else 
+                return Mathf.Acos((temp - orbitalEccentricity) / (1 - orbitalEccentricity * temp));
+        }
+        //æŠŠçœŸè¿‘ç‚¹è§’è½¬æ¢æˆåè¿‘ç‚¹è§’
+        public static float TAnomalyToEAnomaly(float orbitalEccentricity, float trueAnomaly)
+        {
+            float temp = Mathf.Cos(trueAnomaly);
+            if (trueAnomaly % (2 * Mathf.PI) > Mathf.PI)
+                return 2 * Mathf.PI - Mathf.Acos((orbitalEccentricity + temp) / (1 + orbitalEccentricity * temp));
+            else
+                return Mathf.Acos((orbitalEccentricity + temp) / (1 + orbitalEccentricity * temp));
+        }
+        //æŠŠåè¿‘ç‚¹è§’è½¬æ¢æˆå¹³è¿‘ç‚¹è§’
+        public static float EAnomalyToMAnomaly(float orbitalEccentricity, float eccentricAnomaly)
+        {
+            return (eccentricAnomaly - orbitalEccentricity * Mathf.Sin(eccentricAnomaly)) % (2 * Mathf.PI);
+        }
+        //æŠŠå¹³è¿‘ç‚¹è§’è½¬æ¢æˆçœŸè¿‘ç‚¹è§’
+        public static float MAnomalyToTAnomaly(float orbitalEccentricity, float meanAnomaly, double tolerance = 1e-5)
+        {
+            return EAnomalyToTAnomaly(orbitalEccentricity, MAnomalyToEAnomaly(orbitalEccentricity, meanAnomaly, tolerance));
+        }
+        //æŠŠçœŸè¿‘ç‚¹è§’è½¬æ¢æˆå¹³è¿‘ç‚¹è§’
+        public static float TAnomalyToMAnomaly(float orbitalEccentricity, float trueAnomaly)
+        {
+            return EAnomalyToMAnomaly(orbitalEccentricity, TAnomalyToEAnomaly(orbitalEccentricity, trueAnomaly));
+        }
     }
 }

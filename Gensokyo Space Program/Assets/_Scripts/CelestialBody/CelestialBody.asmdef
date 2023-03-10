@@ -1,0 +1,16 @@
+{
+    "name": "CelestialBody",
+    "rootNamespace": "",
+    "references": [
+        "GUID:107dbda9363ae8542b98ce3a93567c2e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

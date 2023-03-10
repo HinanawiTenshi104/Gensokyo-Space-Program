@@ -477,7 +477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestialBodyData: {fileID: 11400000, guid: 98dd0691fe6370b41b2b370bd2d107c3, type: 2}
-  OrbitingObject: {fileID: 0}
+  orbitingObject: {fileID: 0}
 --- !u!114 &345457653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1109,7 +1109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestialBodyData: {fileID: 11400000, guid: 18cf17774fb25d548812f1eb14a689a7, type: 2}
-  OrbitingObject: {fileID: 0}
+  orbitingObject: {fileID: 0}
 --- !u!114 &777584097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1147,7 +1147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestialBodyData: {fileID: 11400000, guid: 2cb4166c3edb7154b8251899e4bffc0b, type: 2}
-  OrbitingObject: {fileID: 0}
+  orbitingObject: {fileID: 0}
 --- !u!114 &804135049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1241,7 +1241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestialBodyData: {fileID: 11400000, guid: edb87f9e18b28bd499cc96eab3b3ca43, type: 2}
-  OrbitingObject: {fileID: 0}
+  orbitingObject: {fileID: 0}
 --- !u!114 &953933542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1384,7 +1384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestialBodyData: {fileID: 11400000, guid: 7b609644c87bacd41a58ab2f679c0187, type: 2}
-  OrbitingObject: {fileID: 0}
+  orbitingObject: {fileID: 0}
 --- !u!114 &1006800344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1905,9 +1905,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2572664110e0b044cb9661bbdf890458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CoordinateSystemName: CelestialBodysCoordinateSystem
-  Position: {x: 0, y: 0, z: 0}
-  Velocity: {x: 0, y: 0, z: 0}
+  coordinateSystemName: 
+  position: {x: 0, y: 0, z: 0}
+  velocity: {x: 0, y: 0, z: 0}
 --- !u!1001 &1373404476
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2027,7 +2027,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestialBodyData: {fileID: 11400000, guid: e0175703608b90c4eaef64758a5e9e8c, type: 2}
-  OrbitingObject: {fileID: 0}
+  orbitingObject: {fileID: 0}
 --- !u!114 &1468617084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2243,7 +2243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestialBodyData: {fileID: 11400000, guid: a4e55613e92508e419de2361763d6591, type: 2}
-  OrbitingObject: {fileID: 0}
+  orbitingObject: {fileID: 0}
 --- !u!4 &1530151819 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1229251971759408710, guid: 5f776740c447e45afb25edbca842de92, type: 3}
@@ -2470,7 +2470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdfff8e3095eae945a07c79e0be34e7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InStarMap: 0
+  inStarMap: 0
 --- !u!1 &1721119610 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1014736895960144, guid: c91342f6e3afc48fd958056404ead345, type: 3}
@@ -2489,7 +2489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestialBodyData: {fileID: 11400000, guid: 64f3428c930559e47a14d3b89eb7a829, type: 2}
-  OrbitingObject: {fileID: 0}
+  orbitingObject: {fileID: 0}
 --- !u!114 &1721119615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2664,7 +2664,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestialBodyData: {fileID: 11400000, guid: a91f34c3dc0e84841a47acb62d431d0c, type: 2}
-  OrbitingObject: {fileID: 0}
+  orbitingObject: {fileID: 0}
 --- !u!114 &1799497604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3325,7 +3325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestialBodyData: {fileID: 11400000, guid: 160c3283d68c9274ba78d2082656c95e, type: 2}
-  OrbitingObject: {fileID: 0}
+  orbitingObject: {fileID: 0}
 --- !u!114 &2009633157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3454,7 +3454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipMass: 10000
   enginePower: 1000
-  throttle_change_speed: 50
+  throttleChangeSpeed: 50
   throttle: 0
   pitchPower: 100
   rollPower: 100
@@ -3552,7 +3552,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeScale: 1
-  physicisDeltaTime: 0.02
+  physicsDeltaTime: 0.02
 --- !u!1001 &2076264298
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3800,7 +3800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestialBodyData: {fileID: 11400000, guid: d6c5ec0aa5303ed47ba829f61d56e620, type: 2}
-  OrbitingObject: {fileID: 0}
+  orbitingObject: {fileID: 0}
 --- !u!114 &2145499245
 MonoBehaviour:
   m_ObjectHideFlags: 0

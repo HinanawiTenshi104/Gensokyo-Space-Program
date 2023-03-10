@@ -1,17 +1,20 @@
 using UnityEngine;
 
-public class CoordinateSystemOrigin : MonoBehaviour
+namespace GensokyoSpaceProgram._Scripts
 {
-    public string CoordinateSystemName;
-    public Vector3 Position;
-    public Vector3 Velocity;
+    public class CoordinateSystemOrigin : MonoBehaviour
+    {
+        public string coordinateSystemName;
+        public Vector3 position;
+        public Vector3 velocity;
 
-    private void FixedUpdate()
-    {
-        Position += Velocity * Time.fixedDeltaTime;
-    }
-    private void Update()
-    {
-        gameObject.transform.position = Position;
+        private void FixedUpdate()
+        {
+            position += velocity * Time.fixedDeltaTime;
+        }
+        private void Update()
+        {
+            gameObject.transform.position = position;
+        }
     }
 }

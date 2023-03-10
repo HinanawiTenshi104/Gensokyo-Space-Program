@@ -1,60 +1,58 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FloatingOrigin : MonoBehaviour
+namespace GensokyoSpaceProgram._Scripts
 {
-    [SerializeField] bool activeFloatingOrigin = true;
-    [SerializeField] float maxDistance = 200;   //unity length unit
-    [SerializeField] float maxVelocity = 200;
-
-    GameObject originObject;    //ÒªÒ»Ö±ÒÆµ½Ô­µãµÄÎïÌå
-    List<GameObject> originsNeededToMove;    //Òª±»ÒÆ¶¯µÄ×ø±êÏµµÄ×ø±êÔ­µãÎïÌå
-    List<CoordinateSystemOrigin> coordinateSystemOrigins;
-
-    void Start()
+    public class FloatingOrigin : MonoBehaviour
     {
-        originObject = gameObject;
-        originsNeededToMove = new List<GameObject>();
-        coordinateSystemOrigins = new List<CoordinateSystemOrigin>();
+        [SerializeField] bool activeFloatingOrigin = true;
+        [SerializeField] float maxDistance = 200;   //unity length unit
+        [SerializeField] float maxVelocity = 200;
 
-        originsNeededToMove.Add(originObject);
-        originsNeededToMove.AddRange(GameObject.FindGameObjectsWithTag("Origin"));
+        GameObject _originObject;    //è¦ä¸€ç›´ç§»åˆ°åŸç‚¹çš„ç‰©ä½“
+        List<GameObject> _originsNeededToMove;    //è¦è¢«ç§»åŠ¨çš„åæ ‡ç³»çš„åæ ‡åŸç‚¹ç‰©ä½“
+        List<CoordinateSystemOrigin> _coordinateSystemOrigins;
 
-        for (int i = 0; i < originsNeededToMove.Count; i++)
+        void Start()
         {
-            if (i == 0)
+            _originObject = gameObject;
+            _originsNeededToMove = new List<GameObject>();
+            _coordinateSystemOrigins = new List<CoordinateSystemOrigin>();
+
+            _originsNeededToMove.Add(_originObject);
+            _originsNeededToMove.AddRange(GameObject.FindGameObjectsWithTag("Origin"));
+
+            for (int i = 0; i < _originsNeededToMove.Count; i++)
             {
-                coordinateSystemOrigins.Add(null);
-            }
-            else
-            {
-                coordinateSystemOrigins.Add(originsNeededToMove[i].GetComponent<CoordinateSystemOrigin>());
+                _coordinateSystemOrigins.Add((i == 0)
+                    ? null
+                    : _originsNeededToMove[i].GetComponent<CoordinateSystemOrigin>());
             }
         }
-    }
-    void LateUpdate()
-    {
-        if (activeFloatingOrigin)
+        void LateUpdate()
         {
-            if ((originObject.transform.position.magnitude > maxDistance) || (originObject.GetComponent<Rigidbody>().velocity.magnitude > maxVelocity))
+            if (activeFloatingOrigin)
             {
-                Vector3 deltaPosition = -originObject.transform.position;
-                Vector3 deltaVelocity = -originObject.GetComponent<Rigidbody>().velocity;
-
-                for (int i = 0; i < originsNeededToMove.Count; i++)
+                if ((_originObject.transform.position.magnitude > maxDistance) || (_originObject.GetComponent<Rigidbody>().velocity.magnitude > maxVelocity))
                 {
-                    if (i == 0)//ÎªÒªÒ»Ö±ÒÆµ½Ô­µãµÄÎïÌå
+                    Vector3 deltaPosition = -_originObject.transform.position;
+                    Vector3 deltaVelocity = -_originObject.GetComponent<Rigidbody>().velocity;
+
+                    for (int i = 0; i < _originsNeededToMove.Count; i++)
                     {
-                        originsNeededToMove[i].transform.position += deltaPosition;
-                        originsNeededToMove[i].GetComponent<Rigidbody>().velocity += deltaVelocity;
+                        if (i == 0)//ä¸ºè¦ä¸€ç›´ç§»åˆ°åŸç‚¹çš„ç‰©ä½“
+                        {
+                            _originsNeededToMove[i].transform.position += deltaPosition;
+                            _originsNeededToMove[i].GetComponent<Rigidbody>().velocity += deltaVelocity;
+                        }
+                        else
+                        {
+                            _coordinateSystemOrigins[i].position += deltaPosition;
+                            _coordinateSystemOrigins[i].velocity += deltaVelocity;
+                        }
                     }
-                    else
-                    {
-                        coordinateSystemOrigins[i].Position += deltaPosition;
-                        coordinateSystemOrigins[i].Velocity += deltaVelocity;
-                    }
+                    //Debug.Log("é‡æ–°ç§»åŠ¨åŸç‚¹ï¼");
                 }
-                //Debug.Log("ÖØĞÂÒÆ¶¯Ô­µã£¡");
             }
         }
     }

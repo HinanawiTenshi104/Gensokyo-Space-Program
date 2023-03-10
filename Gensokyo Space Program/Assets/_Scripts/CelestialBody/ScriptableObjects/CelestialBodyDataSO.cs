@@ -1,65 +1,68 @@
 using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "newCelestialBodyData", menuName = "Data/Celestial Body Data", order = 0)]
-public class CelestialBodyDataSO : ScriptableObject
+namespace _Scripts.CelestialBody.ScriptableObjects
 {
-    [ReadOnly, Header("ÌìÌåÃû³Æ")] public string CelestialBodyName;
-    #region Ò»°ãĞÅÏ¢
-    [Header("\nÒ»°ãĞÅÏ¢")]
-    [ReadOnly, Header("ÌìÌåÖÊĞÄÎ»ÖÃ")] public Vector3 Position;
-    [ReadOnly, Header("ÌìÌåÖÊĞÄËÙ¶È")] public Vector3 Velocity;
-    #endregion
-    #region ¹ìµÀÌØĞÔ
-    [Header("\nÌìÌå¹ìµÀÌØĞÔ")]
-    [ReadOnly, Header("ÖĞĞÄÌìÌåÃû×Ö")] public string OrbitingBodyName = null;
-    [ReadOnly, Header("Ô¶¹°µã")] public double Apoapsis;   //µ¥Î»£ºmeter
-    [ReadOnly, Header("½ü¹°µã")] public double Periapsis;  //µ¥Î»£ºmeter
-    [ReadOnly, Header("°ë³¤Öá")] public double SemiMajorAxis;  //µ¥Î»£ºmeter
-    [ReadOnly, Header("¹ìµÀÀëĞÄÂÊ")] public float OrbitalEccentricit;
-    [ReadOnly, Header("ÀëĞÄÂÊ¡Á½¹×¼¾à")] public double EtimesP;    //µ¥Î»£ºmeter
-    [ReadOnly, Header("¹ìµÀÇã½Ç")] public float OrbitalInclination; //µ¥Î»£ºdegree
-    [ReadOnly, Header("½üĞÄµã·ø½Ç")] public float ArgumentOfPeriapsis;   //µ¥Î»£ºdegree
-    [ReadOnly, Header("Éı½»µã¾­¶È")] public float LongitudeOfTheAscendingNode;   //µ¥Î»£ºdegree
-    [ReadOnly, Header("¹ìµÀ·¨ÏòÁ¿")] public Vector3 PlaneNormalVector;
-    [ReadOnly, Header("Éı½»µãÎ»ÖÃ")] public Vector3 AscendingNode;
-    [ReadOnly, Header("½µ½»µãÎ»ÖÃ")] public Vector3 DescendingNode;
-    [ReadOnly, Header("¹ìµÀÖÜÆÚ")] public double OrbitalPeriod; //µ¥Î»£ºsecond
-    [ReadOnly, Header("¹ìµÀ½Ç¶¯Á¿")] public double OrbitalAngularMomentum;   //µ¥Î»£ºkg*m^2*s^-1
-    [ReadOnly, Header("±È½Ç¶¯Á¿")] public double SpecificAngularMomentum;   //µ¥Î»£ºm^2*s^-1
-    [ReadOnly, Header("¹ìµÀ»úĞµÄÜ")] public double OrbitalMechanicalEnergy;  //µ¥Î»£ºkg*m^2*s^-2
-    [ReadOnly, Header("ÔÚ0Ê±¿ÌµÄ¹ìµÀµÄÆ½½üµã½Ç")] public float MeanAnomalyAtT0;    //µ¥Î»£ºdegree
-    [ReadOnly, Header("ÔÚ0Ê±¿ÌµÄ¹ìµÀµÄÕæ½üµã½Ç")] public float TrueAnomalyAtT0;    //µ¥Î»£ºdegree
-    [ReadOnly, Header("Õæ½üµã½Ç")] public float TrueAnomaly;    //µ¥Î»£ºrad
-    [ReadOnly, Header("Æ«½üµã½Ç")] public float EccentricAnomaly;   //µ¥Î»£ºrad
-    [ReadOnly, Header("Æ½½üµã½Ç")] public float MeanAnomaly;    //µ¥Î»£ºrad
-    #endregion
-    #region ÎïÀíÌØĞÔ
-    [Header("\nÌìÌåÎïÀíÌØĞÔ")]
-    [ReadOnly, Header("Æ½¾ù°ë¾¶")] public double MeanRadius;    //µ¥Î»£ºmeter
-    [ReadOnly, Header("ÖÊÁ¿")] public double Mass;    //µ¥Î»£ºkg
-    [ReadOnly, Header("±ê×¼ÖØÁ¦²ÎÊı")] public double StandardGravitationalParameter;  //µ¥Î»£ºm^3*s^-2
-    [ReadOnly, Header("ÃÜ¶È")] public double Density; //µ¥Î»£ºkg*m^-3
-    [ReadOnly, Header("×Ô×ªÖáÇã½Ç")] public float Obliquity; //µ¥Î»£ºdegree
-    [ReadOnly, Header("×Ô×ªÖá³õÊ¼¾­¶È")] public float ObliquityLongitude;  //µ¥Î»£ºdegree
-    [ReadOnly, Header("×Ô×ªÖá")] public Vector3 RotationAxis;
-    [ReadOnly, Header("×Ô×ªÖÜÆÚ")] public double SiderealRotationPeriod;    //µ¥Î»£ºsecond
-    [ReadOnly, Header("ÒıÁ¦×÷ÓÃ¾àÀë")] public double SphereOfInfluence;   //µ¥Î»£ºmeter
-    #endregion
-}
-
-public class ReadOnlyAttribute : PropertyAttribute { }
-[CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
-public class ReadOnlyDrawer : PropertyDrawer
-{
-    public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+    [CreateAssetMenu(fileName = "newCelestialBodyData", menuName = "Data/Celestial Body Data", order = 0)]
+    public class CelestialBodyDataSO : ScriptableObject
     {
-        return EditorGUI.GetPropertyHeight(property, label, true);
+        [ReadOnly, Header("å¤©ä½“åç§°")] public string CelestialBodyName;
+        #region ä¸€èˆ¬ä¿¡æ¯
+        [Header("\nä¸€èˆ¬ä¿¡æ¯")]
+        [ReadOnly, Header("å¤©ä½“è´¨å¿ƒä½ç½®")] public Vector3 Position;
+        [ReadOnly, Header("å¤©ä½“è´¨å¿ƒé€Ÿåº¦")] public Vector3 Velocity;
+        #endregion
+        #region è½¨é“ç‰¹æ€§
+        [Header("\nå¤©ä½“è½¨é“ç‰¹æ€§")]
+        [ReadOnly, Header("ä¸­å¿ƒå¤©ä½“åå­—")] public string OrbitingBodyName = null;
+        [ReadOnly, Header("è¿œæ‹±ç‚¹")] public double Apoapsis;   //å•ä½ï¼šmeter
+        [ReadOnly, Header("è¿‘æ‹±ç‚¹")] public double Periapsis;  //å•ä½ï¼šmeter
+        [ReadOnly, Header("åŠé•¿è½´")] public double SemiMajorAxis;  //å•ä½ï¼šmeter
+        [ReadOnly, Header("è½¨é“ç¦»å¿ƒç‡")] public float OrbitalEccentricity;
+        [ReadOnly, Header("ç¦»å¿ƒç‡Ã—ç„¦å‡†è·")] public double EtimesP;    //å•ä½ï¼šmeter
+        [ReadOnly, Header("è½¨é“å€¾è§’")] public float OrbitalInclination; //å•ä½ï¼šdegree
+        [ReadOnly, Header("è¿‘å¿ƒç‚¹è¾è§’")] public float ArgumentOfPeriapsis;   //å•ä½ï¼šdegree
+        [ReadOnly, Header("å‡äº¤ç‚¹ç»åº¦")] public float LongitudeOfTheAscendingNode;   //å•ä½ï¼šdegree
+        [ReadOnly, Header("è½¨é“æ³•å‘é‡")] public Vector3 PlaneNormalVector;
+        [ReadOnly, Header("å‡äº¤ç‚¹ä½ç½®")] public Vector3 AscendingNode;
+        [ReadOnly, Header("é™äº¤ç‚¹ä½ç½®")] public Vector3 DescendingNode;
+        [ReadOnly, Header("è½¨é“å‘¨æœŸ")] public double OrbitalPeriod; //å•ä½ï¼šsecond
+        [ReadOnly, Header("è½¨é“è§’åŠ¨é‡")] public double OrbitalAngularMomentum;   //å•ä½ï¼škg*m^2*s^-1
+        [ReadOnly, Header("æ¯”è§’åŠ¨é‡")] public double SpecificAngularMomentum;   //å•ä½ï¼šm^2*s^-1
+        [ReadOnly, Header("è½¨é“æœºæ¢°èƒ½")] public double OrbitalMechanicalEnergy;  //å•ä½ï¼škg*m^2*s^-2
+        [ReadOnly, Header("åœ¨0æ—¶åˆ»çš„è½¨é“çš„å¹³è¿‘ç‚¹è§’")] public float MeanAnomalyAtT0;    //å•ä½ï¼šdegree
+        [ReadOnly, Header("åœ¨0æ—¶åˆ»çš„è½¨é“çš„çœŸè¿‘ç‚¹è§’")] public float TrueAnomalyAtT0;    //å•ä½ï¼šdegree
+        [ReadOnly, Header("çœŸè¿‘ç‚¹è§’")] public float TrueAnomaly;    //å•ä½ï¼šrad
+        [ReadOnly, Header("åè¿‘ç‚¹è§’")] public float EccentricAnomaly;   //å•ä½ï¼šrad
+        [ReadOnly, Header("å¹³è¿‘ç‚¹è§’")] public float MeanAnomaly;    //å•ä½ï¼šrad
+        #endregion
+        #region ç‰©ç†ç‰¹æ€§
+        [Header("\nå¤©ä½“ç‰©ç†ç‰¹æ€§")]
+        [ReadOnly, Header("å¹³å‡åŠå¾„")] public double MeanRadius;    //å•ä½ï¼šmeter
+        [ReadOnly, Header("è´¨é‡")] public double Mass;    //å•ä½ï¼škg
+        [ReadOnly, Header("æ ‡å‡†é‡åŠ›å‚æ•°")] public double StandardGravitationalParameter;  //å•ä½ï¼šm^3*s^-2
+        [ReadOnly, Header("å¯†åº¦")] public double Density; //å•ä½ï¼škg*m^-3
+        [ReadOnly, Header("è‡ªè½¬è½´å€¾è§’")] public float Obliquity; //å•ä½ï¼šdegree
+        [ReadOnly, Header("è‡ªè½¬è½´åˆå§‹ç»åº¦")] public float ObliquityLongitude;  //å•ä½ï¼šdegree
+        [ReadOnly, Header("è‡ªè½¬è½´")] public Vector3 RotationAxis;
+        [ReadOnly, Header("è‡ªè½¬å‘¨æœŸ")] public double SiderealRotationPeriod;    //å•ä½ï¼šsecond
+        [ReadOnly, Header("å¼•åŠ›ä½œç”¨è·ç¦»")] public double SphereOfInfluence;   //å•ä½ï¼šmeter
+        #endregion
     }
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+
+    public class ReadOnlyAttribute : PropertyAttribute { }
+    [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
+    public class ReadOnlyDrawer : PropertyDrawer
     {
-        GUI.enabled = false;
-        EditorGUI.PropertyField(position, property, label, true);
-        GUI.enabled = true;
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            return EditorGUI.GetPropertyHeight(property, label, true);
+        }
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            GUI.enabled = false;
+            EditorGUI.PropertyField(position, property, label, true);
+            GUI.enabled = true;
+        }
     }
 }

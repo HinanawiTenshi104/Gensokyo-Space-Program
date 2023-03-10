@@ -1,19 +1,22 @@
 using UnityEngine;
 
-public class ScenesTracker : MonoBehaviour
+namespace _Scripts.Managers
 {
-    public bool InStarMap;
+    public class ScenesTracker : MonoBehaviour
+    {
+        public bool inStarMap;
 
 
-    private void Start()
-    {
-        InStarMap = false;
-    }
-    private void Update()
-    {
-        if (Input.GetKeyDown("m"))
+        private void Start()
         {
-            InStarMap = !InStarMap;
+            inStarMap = false;
+        }
+        private void Update()
+        {
+            if (Input.GetKeyDown("m"))
+            {
+                inStarMap = !inStarMap;
+            }
         }
     }
 }

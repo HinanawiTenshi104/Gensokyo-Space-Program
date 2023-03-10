@@ -1,56 +1,60 @@
-using System;
+using _Scripts.CelestialBody.Function;
+using _Scripts.CelestialBody.ScriptableObjects;
 using UnityEngine;
 
-//≤Œøº£∫https://www.youtube.com/watch?v=mQKGRoV_jBc
+//ÂèÇËÄÉÔºöhttps://www.youtube.com/watch?v=mQKGRoV_jBc
 
-public class OrbitVisualizer : MonoBehaviour
+namespace _Scripts.CelestialBody
 {
-    [Range(100, 10000), Header("ƒ‚∫œ∂Œ ˝")]
-    public int segments = 10000;
-    [field: SerializeField, Header("LineRender≤ƒ÷ ")]
-    public Material material;
-    #region ±æµÿ±‰¡ø
-    private LineRenderer lineRenderer;
-    private GameObject LineRendererObject;
-    private GameObject orbitingCelestialBody;
-    private CelestialBodyDataHolder celestialBodyDataHolder;
-    private CelestialBodyDataSO celestialBodyData;
-
-    private float OrbitalEccentricit;
-    private double EtimesP;
-    private float ArgumentOfPeriapsis;
-    private Vector3 planeNormalVector;
-    #endregion
-
-    private void Start()
+    public class OrbitVisualizer : MonoBehaviour
     {
-        celestialBodyDataHolder = gameObject.GetComponent<CelestialBodyDataHolder>();
-        celestialBodyData = celestialBodyDataHolder.celestialBodyData;
-        if (material == null)
+        [Range(100, 10000), Header("ÊãüÂêàÊÆµÊï∞")]
+        public int segments = 10000;
+        [field: SerializeField, Header("LineRenderÊùêË¥®")]
+        public Material material;
+        #region Êú¨Âú∞ÂèòÈáè
+        private LineRenderer _lineRenderer;
+        private GameObject _lineRendererObject;
+        private GameObject _orbitingCelestialBody;
+        private CelestialBodyDataHolder _celestialBodyDataHolder;
+        private CelestialBodyDataSO _celestialBodyDataSo;
+
+        private float _orbitalEccentricity;
+        private double _etimesP;
+        private float _argumentOfPeriapsis;
+        private Vector3 _planeNormalVector;
+        #endregion
+
+        private void Start()
         {
-            material = Resources.Load("Materials/OrbitIndicator", typeof(Material)) as Material;
-        }
-        #region LineRenderer…Ë÷√
-        LineRendererObject = new GameObject(celestialBodyData.CelestialBodyName + "πÏµ¿ø… ”ªØ");
-        LineRendererObject.transform.parent = GameObject.Find("OrbitVisualizers").transform;
-        LineRendererObject.AddComponent<LineRenderer>();
-        lineRenderer = LineRendererObject.GetComponent<LineRenderer>();
-        lineRenderer.material = material;
-        lineRenderer.useWorldSpace = false;
-        #endregion
-        #region πÏµ¿…Ë÷√
-        orbitingCelestialBody = celestialBodyDataHolder.OrbitingObject;
-        OrbitalEccentricit = celestialBodyData.OrbitalEccentricit;
-        EtimesP = celestialBodyData.EtimesP;
-        ArgumentOfPeriapsis = celestialBodyData.ArgumentOfPeriapsis;
-        planeNormalVector = celestialBodyData.PlaneNormalVector;
-        #endregion
+            _celestialBodyDataHolder = gameObject.GetComponent<CelestialBodyDataHolder>();
+            _celestialBodyDataSo = _celestialBodyDataHolder.celestialBodyData;
+            if (material == null)
+            {
+                material = Resources.Load("Materials/OrbitIndicator", typeof(Material)) as Material;
+            }
+            #region LineRendererËÆæÁΩÆ
+            _lineRendererObject = new GameObject(_celestialBodyDataSo.CelestialBodyName + "ËΩ®ÈÅìÂèØËßÜÂåñ");
+            _lineRendererObject.transform.parent = GameObject.Find("OrbitVisualizers").transform;
+            _lineRendererObject.AddComponent<LineRenderer>();
+            _lineRenderer = _lineRendererObject.GetComponent<LineRenderer>();
+            _lineRenderer.material = material;
+            _lineRenderer.useWorldSpace = false;
+            #endregion
+            #region ËΩ®ÈÅìËÆæÁΩÆ
+            _orbitingCelestialBody = _celestialBodyDataHolder.orbitingObject;
+            _orbitalEccentricity = _celestialBodyDataSo.OrbitalEccentricity;
+            _etimesP = _celestialBodyDataSo.EtimesP;
+            _argumentOfPeriapsis = _celestialBodyDataSo.ArgumentOfPeriapsis;
+            _planeNormalVector = _celestialBodyDataSo.PlaneNormalVector;
+            #endregion
 
-        LineRendererObject.transform.rotation = Quaternion.identity;
-        OrbitalMechanicsFunctions.SetupOrbitVisuaizer(lineRenderer, segments, OrbitalEccentricit, EtimesP, ArgumentOfPeriapsis, planeNormalVector);
-    }
-    private void Update()
-    {
-        LineRendererObject.transform.position = orbitingCelestialBody.transform.position;
+            _lineRendererObject.transform.rotation = Quaternion.identity;
+            OrbitalMechanicsFunctions.SetupOrbitVisuaizer(_lineRenderer, segments, _orbitalEccentricity, _etimesP, _argumentOfPeriapsis, _planeNormalVector);
+        }
+        private void Update()
+        {
+            _lineRendererObject.transform.position = _orbitingCelestialBody.transform.position;
+        }
     }
 }

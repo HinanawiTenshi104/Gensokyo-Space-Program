@@ -1,78 +1,80 @@
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-public class SpaceshipMovement : MonoBehaviour
+namespace GensokyoSpaceProgram._Scripts
 {
-    private Rigidbody rb;
-
-    public float shipMass;
-    public float enginePower;
-    public float throttle_change_speed = 50; //Ã¿Ãëthrottle¿ÉÒÔ¸Ä±ä¶àÉÙ
-    public float throttle = 0;
-    public float pitchPower = 100; //Ã¿Ãëpitch¿ÉÒÔ¸Ä±ä¶àÉÙ¶È
-    public float rollPower = 100;
-    public float yawPower = 100;
-
-    private void Awake()
+    [RequireComponent(typeof(Rigidbody))]
+    public class SpaceshipMovement : MonoBehaviour
     {
-        rb = gameObject.GetComponent<Rigidbody>();
-        if (rb == null)
+        private Rigidbody _rigidbody;
+
+        public float shipMass;
+        public float enginePower;
+        public float throttleChangeSpeed = 50; //æ¯ç§’throttleå¯ä»¥æ”¹å˜å¤šå°‘
+        public float throttle;
+        public float pitchPower = 100; //æ¯ç§’pitchå¯ä»¥æ”¹å˜å¤šå°‘åº¦
+        public float rollPower = 100;
+        public float yawPower = 100;
+
+        private void Awake()
         {
-            Debug.Log("·É´¬¿ØÖÆÆ÷Î´ÕÒµ½Rigidbody×é¼ş£¡");
+            _rigidbody = gameObject.GetComponent<Rigidbody>();
+            if (_rigidbody == null)
+            {
+                Debug.Log("é£èˆ¹æ§åˆ¶å™¨æœªæ‰¾åˆ°Rigidbodyç»„ä»¶ï¼");
+            }
+
+            _rigidbody.drag = 0;
+            _rigidbody.mass = shipMass;
+            _rigidbody.useGravity = false;
         }
 
-        rb.drag = 0;
-        rb.mass = shipMass;
-        rb.useGravity = false;
-    }
-
-    private void FixedUpdate()
-    {
-        rb.AddForce(transform.forward * enginePower * throttle);
-
-        float pitch = -Input.GetAxisRaw("Pitch") * pitchPower * Time.fixedDeltaTime;
-        float roll = -Input.GetAxisRaw("Roll") * rollPower * Time.fixedDeltaTime;
-        float yaw = Input.GetAxisRaw("Yaw") * yawPower * Time.fixedDeltaTime;
-
-        rb.MoveRotation(rb.rotation * Quaternion.Euler(pitch, yaw, roll));
-        if ((pitch==0)&&(roll==0)&&(yaw==0))//Ö±×ßµÄÊ±ºò¿ÉÒÔÏòºó·É
+        private void FixedUpdate()
         {
-            rb.velocity = Quaternion.FromToRotation(rb.velocity, transform.forward) * rb.velocity;
+            _rigidbody.AddForce(enginePower * throttle * transform.forward);
+
+            float pitch = -Input.GetAxisRaw("Pitch") * pitchPower * Time.fixedDeltaTime;
+            float roll = -Input.GetAxisRaw("Roll") * rollPower * Time.fixedDeltaTime;
+            float yaw = Input.GetAxisRaw("Yaw") * yawPower * Time.fixedDeltaTime;
+
+            _rigidbody.MoveRotation(_rigidbody.rotation * Quaternion.Euler(pitch, yaw, roll));
+            if ((pitch==0)&&(roll==0)&&(yaw==0))//ç›´èµ°çš„æ—¶å€™å¯ä»¥å‘åé£
+            {
+                _rigidbody.velocity = Quaternion.FromToRotation(_rigidbody.velocity, transform.forward) * _rigidbody.velocity;
+            }
         }
-    }
 
-    private void Update()
-    {
-        if (Input.GetKey(KeyCode.LeftShift) &&(throttle<100))
+        private void Update()
         {
-            throttle += throttle_change_speed * Time.deltaTime;
-            if (throttle > 100)
+            if (Input.GetKey(KeyCode.LeftShift) &&(throttle<100))
+            {
+                throttle += throttleChangeSpeed * Time.deltaTime;
+                if (throttle > 100)
+                {
+                    throttle = 100;
+                }
+            }
+            if (Input.GetKey(KeyCode.LeftControl) &&(throttle>-50))
+            {
+                throttle -= throttleChangeSpeed * Time.deltaTime;
+                if (throttle < -50)
+                {
+                    throttle = -50;
+                }
+            }
+            if (Input.GetKey("z"))
             {
                 throttle = 100;
             }
-        }
-        if (Input.GetKey(KeyCode.LeftControl) &&(throttle>-50))
-        {
-            throttle -= throttle_change_speed * Time.deltaTime;
-            if (throttle < -50)
+
+            if (Input.GetKey("x"))
             {
-                throttle = -50;
+                throttle = 0;
             }
-        }
-        if (Input.GetKey("z"))
-        {
-            throttle = 100;
-        }
 
-        if (Input.GetKey("x"))
-        {
-            throttle = 0;
-        }
-
-        if (Input.GetKey("c"))
-        {
-            rb.velocity = Vector3.zero;
+            if (Input.GetKey("c"))
+            {
+                _rigidbody.velocity = Vector3.zero;
+            }
         }
     }
 }

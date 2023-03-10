@@ -1,126 +1,130 @@
 using System.Collections.Generic;
+using _Scripts.CelestialBody.Function;
+using _Scripts.CelestialBody.ScriptableObjects;
 using UnityEngine;
 
-public class CelestialBodyManager : MonoBehaviour
+namespace _Scripts.CelestialBody
 {
-    #region ±äÁ¿
-    GameObject sun;
-    GameObject[] planets;
-    List<GameObject> celestialBodies;//sun+planets
-    CelestialBodyDataSO sunData;
-    List<CelestialBodyDataSO> planetcbdatas = new List<CelestialBodyDataSO>();
-    List<CelestialBodyDataSO> celestialBodiescbdatas;
-    List<GameObject> surfaces;
-    List<Vector3> LocalRotationAxes = new List<Vector3>();
-    #endregion
-    void Start()
+    public class CelestialBodyManager : MonoBehaviour
     {
-        #region »ñÈ¡ÎïÌåºÍÊı¾İ
-        sun = GameObject.FindGameObjectWithTag("Sun");
-        planets = GameObject.FindGameObjectsWithTag("CelestialBody");
-        celestialBodies = new List<GameObject> { sun };
-        celestialBodies.AddRange(planets);
-
-        sunData = sun.GetComponent<CelestialBodyDataHolder>().celestialBodyData;
-        planetcbdatas = OrbitalMechanicsFunctions.GetCelestialBodyDatas(planets);
-        celestialBodiescbdatas = new List<CelestialBodyDataSO> { sunData };
-        celestialBodiescbdatas.AddRange(planetcbdatas);
+        #region å˜é‡
+        GameObject _sun;
+        GameObject[] _planets;
+        List<GameObject> _celestialBodies;//sun+planets
+        CelestialBodyDataSO _sunData;
+        List<CelestialBodyDataSO> _planetcbdatas = new List<CelestialBodyDataSO>();
+        List<CelestialBodyDataSO> _celestialBodiescbdatas;
+        List<GameObject> _surfaces;
+        readonly List<Vector3> _localRotationAxes = new List<Vector3>();
         #endregion
-        #region ĞÇÇòÎ»ÖÃ³õÊ¼»¯
-        sunData.Velocity = Vector3.zero;
-        sunData.Position = Vector3.zero;
-        foreach (var cbdata in planetcbdatas)
+        void Start()
         {
-            cbdata.MeanAnomaly = cbdata.MeanAnomalyAtT0;
-        }
-        #endregion
-        CelestialBodyResizer();
-        #region ĞÇÇò×Ô×ª
-        surfaces = new List<GameObject>();
-        for (int i = 0; i < celestialBodies.Count; i++)
-        {
-            double SiderealRotationPeriod = celestialBodiescbdatas[i].SiderealRotationPeriod;
-            Vector3 RotationAxis = celestialBodiescbdatas[i].RotationAxis;
+            #region è·å–ç‰©ä½“å’Œæ•°æ®
+            _sun = GameObject.FindGameObjectWithTag("Sun");
+            _planets = GameObject.FindGameObjectsWithTag("CelestialBody");
+            _celestialBodies = new List<GameObject> { _sun };
+            _celestialBodies.AddRange(_planets);
 
-            GameObject surface = celestialBodies[i].transform.Find("Appearance").Find("Surface").gameObject;
-            if (surface == null)
+            _sunData = _sun.GetComponent<CelestialBodyDataHolder>().celestialBodyData;
+            _planetcbdatas = OrbitalMechanicsFunctions.GetCelestialBodyDatas(_planets);
+            _celestialBodiescbdatas = new List<CelestialBodyDataSO> { _sunData };
+            _celestialBodiescbdatas.AddRange(_planetcbdatas);
+            #endregion
+            #region æ˜Ÿçƒä½ç½®åˆå§‹åŒ–
+            _sunData.Velocity = Vector3.zero;
+            _sunData.Position = Vector3.zero;
+            foreach (var cbdata in _planetcbdatas)
             {
-                Debug.Log("Î´ÄÜÕÒµ½" + celestialBodies[i].name +"µÄsurface×ÓÎïÌå");
+                cbdata.MeanAnomaly = cbdata.MeanAnomalyAtT0;
+            }
+            #endregion
+            CelestialBodyResizer();
+            #region æ˜Ÿçƒè‡ªè½¬
+            _surfaces = new List<GameObject>();
+            for (int i = 0; i < _celestialBodies.Count; i++)
+            {
+                Vector3 rotationAxis = _celestialBodiescbdatas[i].RotationAxis;
+
+                GameObject surface = _celestialBodies[i].transform.Find("Appearance").Find("Surface").gameObject;
+                if (surface == null)
+                {
+                    Debug.Log("æœªèƒ½æ‰¾åˆ°" + _celestialBodies[i].name +"çš„surfaceå­ç‰©ä½“");
+                }
+
+                _localRotationAxes.Add(Quaternion.FromToRotation(surface.transform.forward, _celestialBodies[i].transform.forward) * rotationAxis);  //å› ä¸ºtransform.Rotateçš„Axiså¥½åƒæ˜¯localçš„ï¼Œæ‰€ä»¥è¦æŠŠç›¸å¯¹æ˜Ÿçƒçš„è‡ªè½¬è½´æ”¹æˆç›¸å¯¹åœ°é¢è´´å›¾çš„è‡ªè½¬è½´
+                surface.transform.rotation = surface.transform.rotation * Quaternion.FromToRotation(Vector3.forward, rotationAxis); //æŠŠæ—‹è½¬åçš„åœ°é¢è´´å›¾çš„[è§†è§‰ä¸Šçš„Zè½´]ä¸è‡ªè½¬è½´å¯¹é½
+
+                _surfaces.Add(surface);
             }
 
-            LocalRotationAxes.Add(Quaternion.FromToRotation(surface.transform.forward, celestialBodies[i].transform.forward) * RotationAxis);  //ÒòÎªtransform.RotateµÄAxisºÃÏñÊÇlocalµÄ£¬ËùÒÔÒª°ÑÏà¶ÔĞÇÇòµÄ×Ô×ªÖá¸Ä³ÉÏà¶ÔµØÃæÌùÍ¼µÄ×Ô×ªÖá
-            surface.transform.rotation = surface.transform.rotation * Quaternion.FromToRotation(Vector3.forward, RotationAxis); //°ÑĞı×ªºóµÄµØÃæÌùÍ¼µÄ[ÊÓ¾õÉÏµÄZÖá]Óë×Ô×ªÖá¶ÔÆë
-
-            surfaces.Add(surface);
+            ////DEBUG ç”¨
+            //GameObject[] rotateaxesballs_world = new GameObject[celestialBodies.Count];
+            //for (int i = 0; i < rotateaxesballs_world.Length; i++)
+            //{
+            //    rotateaxesballs_world[i] = ObjectCreator.CreateSphere(celestialBodies[i].name+" Rotation Axis", 100, celestialBodies[i]);
+            //    rotateaxesballs_world[i].transform.position = celestialBodies[i].transform.position + 1000 * celestialBodiescbdatas[i].RotationAxis;
+            //}
+            //GameObject[] rotateaxesballs_local = new GameObject[celestialBodies.Count];
+            //for (int i = 0; i < rotateaxesballs_local.Length; i++)
+            //{
+            //    rotateaxesballs_local[i] = ObjectCreator.CreateSphere(celestialBodies[i].name + " Local Rotation Axis", 100, celestialBodies[i].transform.Find("Appearance").Find("Surface").gameObject);
+            //    rotateaxesballs_local[i].transform.position = celestialBodies[i].transform.position + 1000 * LocalRotationAxes[i];
+            //}
+            //GameObject[] surfaceforward = new GameObject[celestialBodies.Count];
+            //for (int i = 0; i < surfaceforward.Length; i++)
+            //{
+            //    surfaceforward[i] = ObjectCreator.CreateSphere(celestialBodies[i].name + " Surface Forward Axis", 100, celestialBodies[i].transform.Find("Appearance").Find("Surface").gameObject);
+            //    surfaceforward[i].transform.position = celestialBodies[i].transform.position + 1000 * Vector3.forward;
+            //}
+            ////#DEBUG ç”¨
+            #endregion
         }
-
-        ////DEBUG ÓÃ
-        //GameObject[] rotateaxesballs_world = new GameObject[celestialBodies.Count];
-        //for (int i = 0; i < rotateaxesballs_world.Length; i++)
-        //{
-        //    rotateaxesballs_world[i] = ObjectCreator.CreateSphere(celestialBodies[i].name+" Rotation Axis", 100, celestialBodies[i]);
-        //    rotateaxesballs_world[i].transform.position = celestialBodies[i].transform.position + 1000 * celestialBodiescbdatas[i].RotationAxis;
-        //}
-        //GameObject[] rotateaxesballs_local = new GameObject[celestialBodies.Count];
-        //for (int i = 0; i < rotateaxesballs_local.Length; i++)
-        //{
-        //    rotateaxesballs_local[i] = ObjectCreator.CreateSphere(celestialBodies[i].name + " Local Rotation Axis", 100, celestialBodies[i].transform.Find("Appearance").Find("Surface").gameObject);
-        //    rotateaxesballs_local[i].transform.position = celestialBodies[i].transform.position + 1000 * LocalRotationAxes[i];
-        //}
-        //GameObject[] surfaceforward = new GameObject[celestialBodies.Count];
-        //for (int i = 0; i < surfaceforward.Length; i++)
-        //{
-        //    surfaceforward[i] = ObjectCreator.CreateSphere(celestialBodies[i].name + " Surface Forward Axis", 100, celestialBodies[i].transform.Find("Appearance").Find("Surface").gameObject);
-        //    surfaceforward[i].transform.position = celestialBodies[i].transform.position + 1000 * Vector3.forward;
-        //}
-        ////#DEBUG ÓÃ
-        #endregion
-    }
-    void Update()
-    {
-        UpdateMeanAnomalys();
-        UpdatePositions();
-        MoveCelestialBodys();
-        RotateCelestialBodys();
-    }
-    public void CelestialBodyResizer()
-    {
-        for (int i = 0; i < celestialBodies.Count; i++)
+        void Update()
         {
-            celestialBodies[i].transform.localScale = (float)(celestialBodiescbdatas[i].MeanRadius * Constants.PlanetRadiusShrinkFactor) * Vector3.one;
+            UpdateMeanAnomalys();
+            UpdatePositions();
+            MoveCelestialBodys();
+            RotateCelestialBodys();
         }
-    }
-    public void UpdateMeanAnomalys()
-    {
-        for (int i = 0; i < planets.Length; i++)
+        public void CelestialBodyResizer()
         {
-            //Debug.Log("planet " + planets[i].name + "'s MeanAnomaly updating!");
-            OrbitalMechanicsFunctions.UpdateMeanAnomaly(planetcbdatas[i], Time.time);
+            for (int i = 0; i < _celestialBodies.Count; i++)
+            {
+                _celestialBodies[i].transform.localScale = (float)(_celestialBodiescbdatas[i].MeanRadius * Constants.PlanetRadiusShrinkFactor) * Vector3.one;
+            }
         }
-    }
-    public void UpdatePositions()
-    {
-        for (int i = 0; i < planets.Length; i++)
+        public void UpdateMeanAnomalys()
         {
-            //Debug.Log("planet " + planets[i].name + "'s Position updating!");
-            planetcbdatas[i].Position = OrbitalMechanicsFunctions.CalculatePlanetWorldPosition(planets[i]);
+            for (int i = 0; i < _planets.Length; i++)
+            {
+                //Debug.Log("planet " + planets[i].name + "'s MeanAnomaly updating!");
+                OrbitalMechanicsFunctions.UpdateMeanAnomaly(_planetcbdatas[i], Time.time);
+            }
         }
-    }
-    public void MoveCelestialBodys()
-    {
-        for (int i = 0; i < planets.Length; i++)
+        public void UpdatePositions()
         {
-            //Debug.Log("Moving planet " + planets[i].name + "!");
-            planets[i].transform.position = planetcbdatas[i].Position;
+            for (int i = 0; i < _planets.Length; i++)
+            {
+                //Debug.Log("planet " + planets[i].name + "'s Position updating!");
+                _planetcbdatas[i].Position = OrbitalMechanicsFunctions.CalculatePlanetWorldPosition(_planets[i]);
+            }
         }
-    }
-    public void RotateCelestialBodys()
-    {
-        for (int i = 0; i < celestialBodies.Count; i++)
+        public void MoveCelestialBodys()
         {
-            double SiderealRotationPeriod = celestialBodiescbdatas[i].SiderealRotationPeriod;
-            surfaces[i].transform.Rotate(LocalRotationAxes[i], (float)(-360f / (SiderealRotationPeriod * Constants.TShrinkFactor) * Time.deltaTime));
-            //Debug.Log(celestialBodies[i].name + " Rotated!\nRotated by " + (float)(-360f / (SiderealRotationPeriod * Constants.TShrinkFactor) * Time.deltaTime) + "degree!");
+            for (int i = 0; i < _planets.Length; i++)
+            {
+                //Debug.Log("Moving planet " + planets[i].name + "!");
+                _planets[i].transform.position = _planetcbdatas[i].Position;
+            }
+        }
+        public void RotateCelestialBodys()
+        {
+            for (int i = 0; i < _celestialBodies.Count; i++)
+            {
+                double siderealRotationPeriod = _celestialBodiescbdatas[i].SiderealRotationPeriod;
+                _surfaces[i].transform.Rotate(_localRotationAxes[i], (float)(-360f / (siderealRotationPeriod * Constants.TShrinkFactor) * Time.deltaTime));
+                //Debug.Log(celestialBodies[i].name + " Rotated!\nRotated by " + (float)(-360f / (SiderealRotationPeriod * Constants.TShrinkFactor) * Time.deltaTime) + "degree!");
+            }
         }
     }
 }

@@ -1,114 +1,121 @@
 using System.Collections.Generic;
+using _Scripts.CelestialBody;
+using _Scripts.CelestialBody.Function;
+using _Scripts.CelestialBody.ScriptableObjects;
 using UnityEditor;
 using UnityEngine;
 
-public class CoordinateSystemDebugger : EditorWindow
+namespace GensokyoSpaceProgram._Scripts.Editor
 {
-    [MenuItem("Game/Coordinate System Debugger")]
-    private static void OpenWindow()
+    public class CoordinateSystemDebugger : EditorWindow
     {
-        var window = GetWindow<CoordinateSystemDebugger>();
-
-        GameObject[] planets = GameObject.FindGameObjectsWithTag("CelestialBody");
-
-        window.player = GameObject.FindGameObjectWithTag("Player");
-        window.sun = GameObject.FindGameObjectWithTag("Sun");
-        window.cbdatas = OrbitalMechanicsFunctions.GetCelestialBodyDatas(planets);
-    }
-    #region ±‰¡ø
-    public GameObject player;
-    public GameObject sun;
-    public List<CelestialBodyDataSO> cbdatas;
-
-    int NameColumnWidth = 100;
-    int Vector3ColumnWidth = 300;
-
-    bool showPlayerCoordinateSystem;
-    bool showCelestialBodyCoordinateSystem;
-    bool showSunCoordinateSystem;
-
-    Vector2 scrollPos;
-    #endregion
-    void OnGUI()
-    {
-        #region Debugger…Ë÷√
-        EditorGUILayout.LabelField("√˚≥∆¡–øÌ");
-        NameColumnWidth = EditorGUILayout.IntField(NameColumnWidth);
-        EditorGUILayout.LabelField("Vector3¡–øÌ");
-        Vector3ColumnWidth = EditorGUILayout.IntField(Vector3ColumnWidth);
-
-        showPlayerCoordinateSystem = EditorGUILayout.Toggle("œ‘ æÕÊº“◊¯±Íœµ", showPlayerCoordinateSystem);
-        showSunCoordinateSystem = EditorGUILayout.Toggle("œ‘ æÃ´—Ù–≈œ¢", showSunCoordinateSystem);
-        showCelestialBodyCoordinateSystem = EditorGUILayout.Toggle("œ‘ æ–««Ú◊¯±Íœµ", showCelestialBodyCoordinateSystem);
-        #endregion
-        DrawHeaders();
-
-        scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
-
-        if (showPlayerCoordinateSystem)
-            DrawPlayerCoordinate();
-
-        if (showSunCoordinateSystem)
-            DrawSunCoordinate();
-
-        if (showCelestialBodyCoordinateSystem)
-            DrawCelestialBodysCoordinate();
-
-        EditorGUILayout.EndScrollView();
-
-        Repaint();
-    }
-
-    void DrawHeaders()
-    {
-        EditorGUILayout.BeginHorizontal();
-
-        GUILayout.Label("√˚≥∆", EditorStyles.boldLabel, GUILayout.Width(NameColumnWidth));
-        EditorGUILayout.LabelField("‘≠µ„", GUILayout.Width(Vector3ColumnWidth));
-        EditorGUILayout.LabelField("Œª÷√", GUILayout.Width(Vector3ColumnWidth));
-        EditorGUILayout.LabelField("ÀŸ∂»", GUILayout.Width(Vector3ColumnWidth));
-
-        EditorGUILayout.EndHorizontal();
-    }
-    void DrawPlayerCoordinate()
-    {
-        EditorGUILayout.BeginHorizontal();
-
-        //√˚≥∆£¨‘≠µ„£¨Œª÷√∫ÕÀŸ∂»
-        EditorGUILayout.LabelField("Player", GUILayout.Width(NameColumnWidth));
-        EditorGUILayout.LabelField(Vector3.zero.ToString(), GUILayout.Width(Vector3ColumnWidth));
-        EditorGUILayout.LabelField($" ({player.transform.position})", GUILayout.Width(Vector3ColumnWidth));
-        EditorGUILayout.LabelField($" ({player.GetComponent<Rigidbody>().velocity})", GUILayout.Width(Vector3ColumnWidth));
-
-        EditorGUILayout.EndHorizontal();
-    }
-
-    void DrawSunCoordinate()
-    {
-        EditorGUILayout.BeginHorizontal();
-
-        //√˚≥∆£¨‘≠µ„£¨Œª÷√∫ÕÀŸ∂»
-        EditorGUILayout.LabelField("Sun", GUILayout.Width(NameColumnWidth));
-        EditorGUILayout.LabelField(sun.transform.position.ToString(), GUILayout.Width(Vector3ColumnWidth));
-        EditorGUILayout.LabelField($" ({sun.transform.position})", GUILayout.Width(Vector3ColumnWidth));
-        EditorGUILayout.LabelField($" ({sun.GetComponent<CelestialBodyDataHolder>().celestialBodyData.Velocity})", GUILayout.Width(Vector3ColumnWidth));
-
-        EditorGUILayout.EndHorizontal();
-    }
-
-    void DrawCelestialBodysCoordinate()
-    {
-        foreach (var cbdata in cbdatas)
+        [MenuItem("Game/Coordinate System Debugger")]
+        private static void OpenWindow()
         {
-            //√˚≥∆£¨‘≠µ„£¨Œª÷√∫ÕÀŸ∂»
+            var window = GetWindow<CoordinateSystemDebugger>();
+
+            GameObject[] planets = GameObject.FindGameObjectsWithTag("CelestialBody");
+
+            window.player = GameObject.FindGameObjectWithTag("Player");
+            window.sun = GameObject.FindGameObjectWithTag("Sun");
+            window.cbdatas = OrbitalMechanicsFunctions.GetCelestialBodyDatas(planets);
+        }
+        #region ÂèòÈáè
+        public GameObject player;
+        public GameObject sun;
+        public List<CelestialBodyDataSO> cbdatas;
+
+        int _nameColumnWidth = 100;
+        int _vector3ColumnWidth = 300;
+
+        bool _showPlayerCoordinateSystem;
+        bool _showCelestialBodyCoordinateSystem;
+        bool _showSunCoordinateSystem;
+
+        Vector2 _scrollPos;
+        #endregion
+        void OnGUI()
+        {
+            #region DebuggerËÆæÁΩÆ
+            EditorGUILayout.LabelField("ÂêçÁß∞ÂàóÂÆΩ");
+            _nameColumnWidth = EditorGUILayout.IntField(_nameColumnWidth);
+            EditorGUILayout.LabelField("Vector3ÂàóÂÆΩ");
+            _vector3ColumnWidth = EditorGUILayout.IntField(_vector3ColumnWidth);
+
+            _showPlayerCoordinateSystem = EditorGUILayout.Toggle("ÊòæÁ§∫Áé©ÂÆ∂ÂùêÊ†áÁ≥ª", _showPlayerCoordinateSystem);
+            _showSunCoordinateSystem = EditorGUILayout.Toggle("ÊòæÁ§∫Â§™Èò≥‰ø°ÊÅØ", _showSunCoordinateSystem);
+            _showCelestialBodyCoordinateSystem = EditorGUILayout.Toggle("ÊòæÁ§∫ÊòüÁêÉÂùêÊ†áÁ≥ª", _showCelestialBodyCoordinateSystem);
+            #endregion
+            DrawHeaders();
+
+            _scrollPos = EditorGUILayout.BeginScrollView(_scrollPos);
+
+            if (_showPlayerCoordinateSystem)
+                DrawPlayerCoordinate();
+
+            if (_showSunCoordinateSystem)
+                DrawSunCoordinate();
+
+            if (_showCelestialBodyCoordinateSystem)
+                DrawCelestialBodysCoordinate();
+
+            EditorGUILayout.EndScrollView();
+
+            Repaint();
+        }
+
+        void DrawHeaders()
+        {
             EditorGUILayout.BeginHorizontal();
 
-            EditorGUILayout.LabelField(cbdata.CelestialBodyName, GUILayout.Width(NameColumnWidth));
-            EditorGUILayout.LabelField(sun.transform.position.ToString(), GUILayout.Width(Vector3ColumnWidth));
-            EditorGUILayout.LabelField($" ({cbdata.Position})", GUILayout.Width(Vector3ColumnWidth));
-            EditorGUILayout.LabelField($" ({cbdata.Velocity})", GUILayout.Width(Vector3ColumnWidth));
+            GUILayout.Label("ÂêçÁß∞", EditorStyles.boldLabel, GUILayout.Width(_nameColumnWidth));
+            EditorGUILayout.LabelField("ÂéüÁÇπ", GUILayout.Width(_vector3ColumnWidth));
+            EditorGUILayout.LabelField("‰ΩçÁΩÆ", GUILayout.Width(_vector3ColumnWidth));
+            EditorGUILayout.LabelField("ÈÄüÂ∫¶", GUILayout.Width(_vector3ColumnWidth));
 
             EditorGUILayout.EndHorizontal();
+        }
+        void DrawPlayerCoordinate()
+        {
+            EditorGUILayout.BeginHorizontal();
+
+            //ÂêçÁß∞ÔºåÂéüÁÇπÔºå‰ΩçÁΩÆÂíåÈÄüÂ∫¶
+            EditorGUILayout.LabelField("Player", GUILayout.Width(_nameColumnWidth));
+            EditorGUILayout.LabelField(Vector3.zero.ToString(), GUILayout.Width(_vector3ColumnWidth));
+            EditorGUILayout.LabelField($" ({player.transform.position})", GUILayout.Width(_vector3ColumnWidth));
+            EditorGUILayout.LabelField($" ({player.GetComponent<Rigidbody>().velocity})", GUILayout.Width(_vector3ColumnWidth));
+
+            EditorGUILayout.EndHorizontal();
+        }
+
+        void DrawSunCoordinate()
+        {
+            EditorGUILayout.BeginHorizontal();
+
+            //ÂêçÁß∞ÔºåÂéüÁÇπÔºå‰ΩçÁΩÆÂíåÈÄüÂ∫¶
+            Vector3 sunPosition = sun.transform.position;
+            EditorGUILayout.LabelField("Sun", GUILayout.Width(_nameColumnWidth));
+            EditorGUILayout.LabelField(sunPosition.ToString(), GUILayout.Width(_vector3ColumnWidth));
+            EditorGUILayout.LabelField($" ({sunPosition})", GUILayout.Width(_vector3ColumnWidth));
+            EditorGUILayout.LabelField($" ({sun.GetComponent<CelestialBodyDataHolder>().celestialBodyData.Velocity})", GUILayout.Width(_vector3ColumnWidth));
+
+            EditorGUILayout.EndHorizontal();
+        }
+
+        void DrawCelestialBodysCoordinate()
+        {
+            foreach (var cbdata in cbdatas)
+            {
+                //ÂêçÁß∞ÔºåÂéüÁÇπÔºå‰ΩçÁΩÆÂíåÈÄüÂ∫¶
+                EditorGUILayout.BeginHorizontal();
+
+                EditorGUILayout.LabelField(cbdata.CelestialBodyName, GUILayout.Width(_nameColumnWidth));
+                EditorGUILayout.LabelField(sun.transform.position.ToString(), GUILayout.Width(_vector3ColumnWidth));
+                EditorGUILayout.LabelField($" ({cbdata.Position})", GUILayout.Width(_vector3ColumnWidth));
+                EditorGUILayout.LabelField($" ({cbdata.Velocity})", GUILayout.Width(_vector3ColumnWidth));
+
+                EditorGUILayout.EndHorizontal();
+            }
         }
     }
 }

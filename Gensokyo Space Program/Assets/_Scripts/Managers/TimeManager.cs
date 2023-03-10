@@ -1,15 +1,18 @@
 using UnityEngine;
 
-public class TimeManager : MonoBehaviour
+namespace _Scripts.Managers
 {
-    [SerializeField, Header("时间倍数"), Range(0, 10)]
-    public float timeScale = 1;
-    [SerializeField, Header("物理模拟dt(模拟精度)") ,Range(0.001f,0.02f)]
-    public float physicisDeltaTime = 0.02f;
-
-    private void Update()
+    public class TimeManager : MonoBehaviour
     {
-        Time.timeScale = timeScale;
-        Time.fixedDeltaTime = physicisDeltaTime;
+        [SerializeField, Header("鏃堕棿鍊嶆暟"), Range(0, 10)]
+        public float timeScale = 1;
+        [SerializeField, Header("鐗╃悊妯℃嫙dt(妯℃嫙绮惧害)") ,Range(0.001f,0.02f)]
+        public float physicsDeltaTime = 0.02f;
+
+        private void Update()
+        {
+            Time.timeScale = timeScale;
+            Time.fixedDeltaTime = physicsDeltaTime;
+        }
     }
 }
