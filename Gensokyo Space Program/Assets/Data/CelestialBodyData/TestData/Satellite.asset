@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cee31496a9b3c0e499156277a403f216, type: 3}
+  m_Name: Satellite
+  m_EditorClassIdentifier: 
+  CelestialBodyName: Satellite
+  Position: {x: -25.905928, y: 1.6866391, z: 29.292604}
+  Velocity: {x: 0, y: 0, z: 0}
+  OrbitingBodyName: CenterBody
+  Apoapsis: 4992000045.776367
+  Periapsis: 2687999954.223633
+  SemiMajorAxis: 3840000000
+  OrbitalEccentricity: 0.3
+  EtimesP: 3494399972.534179
+  OrbitalInclination: 105.1
+  ArgumentOfPeriapsis: 75
+  LongitudeOfTheAscendingNode: 76
+  PlaneNormalVector: {x: -0.23356898, y: 0.936794, z: -0.26050445}
+  AscendingNode: {x: -34.870102, y: -8.6940975, z: 0}
+  DescendingNode: {x: 64.75226, y: 16.144566, z: 0}
+  OrbitalPeriod: 73381351.76176113
+  OrbitalAngularMomentum: 6.022090921853425e+34
+  SpecificAngularMomentum: 1204418184370.685
+  OrbitalMechanicalEnergy: -2.7026560576265835e+27
+  MeanAnomalyAtT0: 348.03815
+  TrueAnomalyAtT0: 337
+  TrueAnomaly: 5.8817596
+  EccentricAnomaly: 5.9867883
+  MeanAnomaly: 4.864923
+  MeanRadius: 2200000
+  Mass: 5e+22
+  StandardGravitationalParameter: 3337041550000
+  Density: 1121.0199473821774
+  Obliquity: 0
+  ObliquityLongitude: 0
+  RotationAxis: {x: 0, y: 0, z: 1}
+  SiderealRotationPeriod: 86400
+  SphereOfInfluence: 315959021.1696528

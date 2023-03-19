@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9176758944117031046}
   - component: {fileID: 9176758944117031047}
   m_Layer: 0
-  m_Name: PlanetInfoEditor
+  m_Name: CelestialBodyEditor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

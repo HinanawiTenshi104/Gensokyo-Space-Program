@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cee31496a9b3c0e499156277a403f216, type: 3}
+  m_Name: CenterBody
+  m_EditorClassIdentifier: 
+  CelestialBodyName: CenterBody
+  Position: {x: 0, y: 0, z: 0}
+  Velocity: {x: 0, y: 0, z: 0}
+  OrbitingBodyName: 
+  Apoapsis: 0
+  Periapsis: 0
+  SemiMajorAxis: 0
+  OrbitalEccentricity: 0
+  EtimesP: 0
+  OrbitalInclination: 0
+  ArgumentOfPeriapsis: 0
+  LongitudeOfTheAscendingNode: 0
+  PlaneNormalVector: {x: 0, y: 0, z: 0}
+  AscendingNode: {x: 0, y: 0, z: 0}
+  DescendingNode: {x: 0, y: 0, z: 0}
+  OrbitalPeriod: 0
+  OrbitalAngularMomentum: 0
+  SpecificAngularMomentum: 0
+  OrbitalMechanicalEnergy: 0
+  MeanAnomalyAtT0: 0
+  TrueAnomalyAtT0: 0
+  TrueAnomaly: 0
+  EccentricAnomaly: 0
+  MeanAnomaly: 0
+  MeanRadius: 6371000
+  Mass: 6.22e+24
+  StandardGravitationalParameter: 415127968820000
+  Density: 5742.208372362572
+  Obliquity: 0
+  ObliquityLongitude: 0
+  RotationAxis: {x: 0, y: 0, z: 1}
+  SiderealRotationPeriod: 86400
+  SphereOfInfluence: 0
